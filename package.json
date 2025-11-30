@@ -1,5 +1,5 @@
 {
-  "name": "digicap-web-api-schema",
+  "name": "digicap-web-sdk",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
