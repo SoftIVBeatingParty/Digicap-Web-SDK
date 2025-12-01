@@ -1,5 +1,5 @@
 import type { HttpClient } from "../core/http.js"
-import type { MuseumId } from "../contract/museum.js"
+import type { MuseumId } from "../schema/museum.js"
 import {
     SpotListSchema,
     SpotSchema,
@@ -10,7 +10,7 @@ import {
     type SpotList,
     type CreateSpot,
     type UpdateSpot
-} from "../contract/spot.js"
+} from "../schema/spot.js"
 
 /**
  * Returns an async function that fetches all spots for a specific museum from the API.

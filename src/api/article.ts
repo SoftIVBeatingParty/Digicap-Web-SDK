@@ -1,5 +1,5 @@
 import type { HttpClient } from '../core/http.js'
-import type { MuseumId } from '../contract/museum.js'
+import type { MuseumId } from '../schema/museum.js'
 import {
     ArticleListSchema,
     ArticleSchema,
@@ -10,7 +10,7 @@ import {
     type ArticleList,
     type CreateArticle,
     type UpdateArticle
-} from '../contract/article.js'
+} from '../schema/article.js'
 
 /**
  * Returns an async function that fetches a list of articles for a given museum.

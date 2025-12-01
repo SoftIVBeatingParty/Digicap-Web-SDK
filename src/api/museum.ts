@@ -9,7 +9,7 @@ import {
     type MuseumList,
     type CreateMuseum,
     type UpdateMuseum
-} from "../contract/museum.js"
+} from "../schema/museum.js"
 
 /**
  * Returns an async function that fetches a list of museums.

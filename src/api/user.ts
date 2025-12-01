@@ -4,7 +4,7 @@ import {
     UserCredentialsSchema,
     type User,
     type UserCredentials
-} from "../contract/user.js"
+} from "../schema/user.js"
 
 /**
  * Returns an async function that handles user sign-up.

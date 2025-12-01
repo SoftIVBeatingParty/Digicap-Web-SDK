@@ -1,5 +1,5 @@
 import type { HttpClient } from "../core/http.js"
-import type { MuseumId } from "../contract/museum.js"
+import type { MuseumId } from "../schema/museum.js"
 import {
     TagListSchema,
     TagSchema,
@@ -10,7 +10,7 @@ import {
     type TagList,
     type CreateTag,
     type UpdateTag
-} from "../contract/tag.js"
+} from "../schema/tag.js"
 
 /**
  * Returns an async function that fetches all tags for a specific museum from the API.

@@ -1,5 +1,5 @@
 import type { HttpClient } from "../core/http.js"
-import type { MuseumId } from '../contract/museum.js'
+import type { MuseumId } from '../schema/museum.js'
 import {
     AreaListSchema,
     AreaSchema,
@@ -10,7 +10,7 @@ import {
     type AreaList,
     type CreateArea,
     type UpdateArea
-} from "../contract/area.js"
+} from "../schema/area.js"
 
 /**
  * Returns an async function that fetches a list of areas for a specific museum.
