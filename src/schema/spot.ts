@@ -1,12 +1,10 @@
 import { z } from "zod";
 
-/** Zod Schema for a spot ID (Branded UUID) */
-export const SpotIdSchema = z.uuid().transform((id) => {
-    return id as typeof id & { readonly __brand: "SpotId" }
-})
-
 /** Type for a spot ID (Nominal Type) */
-export type SpotId = z.infer<typeof SpotIdSchema>
+export type SpotId = string & { readonly __brand: unique symbol }
+
+/** Zod Schema for a spot ID (Branded UUID) */
+export const SpotIdSchema = z.uuid().transform(id => id as SpotId)
 
 /** Zod Schema for creating a spot, using the POST method */
 export const CreateSpotSchema = z.object({
@@ -17,7 +15,7 @@ export const CreateSpotSchema = z.object({
 export type CreateSpot = z.infer<typeof CreateSpotSchema>
 
 /** Zod Schema for updating a spot, using the PATCH method */
-export const UpdateSpotSchema = CreateSpotSchema.partial()
+export const UpdateSpotSchema = CreateSpotSchema.partial().strip()
 
 /** Type for updating a spot */
 export type UpdateSpot = z.infer<typeof UpdateSpotSchema>
@@ -25,8 +23,8 @@ export type UpdateSpot = z.infer<typeof UpdateSpotSchema>
 /** Zod Schema for a spot */
 export const SpotSchema = CreateSpotSchema.extend({
     id: SpotIdSchema,
-    createdAt: z.iso.datetime(),
-    updatedAt: z.iso.datetime(),
+    createdAt: z.iso.datetime().transform(s => new Date(s)),
+    updatedAt: z.iso.datetime().transform(s => new Date(s)),
 }).strip()
 
 /** Type for a spot, as responded by the API */

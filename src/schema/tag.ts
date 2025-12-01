@@ -1,12 +1,10 @@
 import { z } from "zod";
 
-/** Zod Schema for a tag id (Branded UUID) */
-export const TagIdSchema = z.uuid().transform((id) => {
-    return id as typeof id & { readonly __brand: "TagId" }
-})
-
 /** Type for a tag id (Nominal Type) */
-export type TagId = z.infer<typeof TagIdSchema>
+export type TagId = string & { readonly __brand: unique symbol }
+
+/** Zod Schema for a tag id (Branded UUID) */
+export const TagIdSchema = z.uuid().transform(id => id as TagId)
 
 /** Zod Schema for creating a tag, using the POST method */
 export const CreateTagSchema = z.object({
@@ -25,8 +23,8 @@ export type UpdateTag = z.infer<typeof UpdateTagSchema>
 /** Zod Schema for a tag as returned by the API */
 export const TagSchema = CreateTagSchema.extend({
     id: TagIdSchema,
-    createdAt: z.iso.datetime(),
-    updatedAt: z.iso.datetime(),
+    createdAt: z.iso.datetime().transform(s => new Date(s)),
+    updatedAt: z.iso.datetime().transform(s => new Date(s)),
 }).strip()
 
 /** Type for a tag, as responded by the API */

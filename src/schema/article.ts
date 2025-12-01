@@ -1,12 +1,10 @@
 import { z } from "zod";
 
-/** Zod Schema for an article id (Branded UUID) */
-export const ArticleIdSchema = z.uuid().transform((id) => {
-    return id as typeof id & { readonly __brand: "ArticleId" }
-})
+/** Zod Schema for an area id (Branded UUID) */
+export type ArticleId = string & { readonly __brand: unique symbol }
 
-/** Type for an article id (Nominal Type) */
-export type ArticleId = z.infer<typeof ArticleIdSchema>
+/** Zod Schema for an article id (Branded UUID) */
+export const ArticleIdSchema = z.uuid().transform(id => id as ArticleId)
 
 /** Zod Schema for creating an article, using the POST method */
 export const CreateArticleSchema = z.object({
@@ -18,7 +16,7 @@ export const CreateArticleSchema = z.object({
 export type CreateArticle = z.infer<typeof CreateArticleSchema>
 
 /** Zod Schema for updating an article, using the PATCH method  */
-export const UpdateArticleSchema = CreateArticleSchema.partial()
+export const UpdateArticleSchema = CreateArticleSchema.partial().strip()
 
 /** Type for updating an article */
 export type UpdateArticle = z.infer<typeof UpdateArticleSchema>
@@ -26,8 +24,8 @@ export type UpdateArticle = z.infer<typeof UpdateArticleSchema>
 /** Zod Schema for an article */
 export const ArticleSchema = CreateArticleSchema.extend({
     id: ArticleIdSchema,
-    createdAt: z.iso.datetime(),
-    updatedAt: z.iso.datetime(),
+    createdAt: z.iso.datetime().transform(s => new Date(s)),
+    updatedAt: z.iso.datetime().transform(s => new Date(s)),
 }).strip()
 
 /** Type for an article, as responded by the API */

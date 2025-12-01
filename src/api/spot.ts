@@ -1,5 +1,5 @@
-import type { HttpClient } from "../core/http.js"
 import type { MuseumId } from "../schema/museum.js"
+import { http } from "../lib/http/axios.js"
 import {
     SpotListSchema,
     SpotSchema,
@@ -12,79 +12,28 @@ import {
     type UpdateSpot
 } from "../schema/spot.js"
 
-/**
- * Returns an async function that fetches all spots for a specific museum from the API.
- * @param museumId - The branded ID of the museum whose spots are to be fetched.
- * @returns An async function that takes an HttpClient and returns a Promise resolving to a validated SpotList.
- */
-export function getSpotList(museumId: MuseumId) {
-    return async (client: HttpClient): Promise<SpotList> => {
-        return SpotListSchema.parse(await client.fetch({
-            method: 'GET',
-            url: `/museums/${museumId}/spots`
-        }))
-    }
+export async function getSpotList(museumId: MuseumId): Promise<SpotList> {
+    const response = await http.get(`/museums/${museumId}/spots`)
+    return SpotListSchema.parse(response.data)
 }
 
-/**
- * Returns an async function that fetches a single spot by its ID within a specific museum.
- * @param museumId - The branded ID of the museum the spot belongs to.
- * @param id - The branded ID of the spot.
- * @returns An async function that takes an HttpClient and returns a Promise resolving to a validated Spot.
- */
-export function getSpot(museumId: MuseumId, id: SpotId) {
-    return async (client: HttpClient): Promise<Spot> => {
-        return SpotSchema.parse(await client.fetch({
-            method: 'GET',
-            url: `/museums/${museumId}/spots/${id}`
-        }))
-    }
+export async function getSpot(museumId: MuseumId, id: SpotId): Promise<Spot> {
+    const response = await http.get(`/museums/${museumId}/spots/${id}`)
+    return SpotSchema.parse(response.data)
 }
 
-/**
- * Returns an async function that creates a new spot within a specific museum.
- * @param museumId - The branded ID of the museum where the spot will be created.
- * @param spot - The spot data to be created (must pass CreateSpotSchema validation).
- * @returns An async function that takes an HttpClient and returns a Promise resolving to the validated created Spot.
- */
-export function createSpot(museumId: MuseumId, spot: CreateSpot) {
-    return async (client: HttpClient): Promise<Spot> => {
-        return SpotSchema.parse(await client.fetch({
-            method: 'POST',
-            url: `/museums/${museumId}/spots`,
-            body: CreateSpotSchema.parse(spot)
-        }))
-    }
+export async function createSpot(museumId: MuseumId, spot: CreateSpot): Promise<Spot> {
+    const body = CreateSpotSchema.parse(spot)
+    const response = await http.post(`/museums/${museumId}/spots`, body)
+    return SpotSchema.parse(response.data)
 }
 
-/**
- * Returns an async function that updates an existing spot by its ID within a specific museum.
- * @param museumId - The branded ID of the museum the spot belongs to.
- * @param id - The branded ID of the spot to update.
- * @param spot - The partial spot data (must pass UpdateSpotSchema validation).
- * @returns An async function that takes an HttpClient and returns a Promise resolving to the validated updated Spot.
- */
-export function updateSpot(museumId: MuseumId, id: SpotId, spot: UpdateSpot) {
-    return async (client: HttpClient): Promise<Spot> => {
-        return SpotSchema.parse(await client.fetch({
-            method: 'PATCH',
-            url: `/museums/${museumId}/spots/${id}`,
-            body: UpdateSpotSchema.parse(spot)
-        }))
-    }
+export async function updateSpot(museumId: MuseumId, id: SpotId, spot: UpdateSpot): Promise<Spot> {
+    const body = UpdateSpotSchema.parse(spot)
+    const response = await http.patch(`/museums/${museumId}/spots/${id}`, body)
+    return SpotSchema.parse(response.data)
 }
 
-/**
- * Returns an async function that deletes a spot by its ID within a specific museum.
- * @param museumId - The branded ID of the museum the spot belongs to.
- * @param id - The branded ID of the spot to delete.
- * @returns An async function that takes an HttpClient and returns a Promise resolving when the spot is successfully deleted (returns void).
- */
-export function deleteSpot(museumId: MuseumId, id: SpotId) {
-    return async (client: HttpClient): Promise<void> => {
-        await client.fetch({
-            method: 'DELETE',
-            url: `/museums/${museumId}/spots/${id}`
-        })
-    }
+export async function deleteSpot(museumId: MuseumId, id: SpotId): Promise<void> {
+    await http.delete(`/museums/${museumId}/spots/${id}`)
 }
