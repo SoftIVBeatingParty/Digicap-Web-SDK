@@ -1,5 +1,5 @@
-import type { MuseumId } from '@/schema/museum.js'
-import { http } from '@/lib/http/axios.js'
+import type { MuseumId } from '../schema/museum.js'
+import { http } from '../lib/http/axios.js'
 import {
     AreaListSchema,
     AreaSchema,
