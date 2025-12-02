@@ -1,4 +1,4 @@
-import { http } from "../lib/http/axios.js"
+import { http } from "@/lib/http/axios.js"
 import {
     MuseumListSchema,
     MuseumSchema,

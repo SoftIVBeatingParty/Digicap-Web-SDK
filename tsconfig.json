@@ -4,6 +4,11 @@
     "baseUrl": "./src",
     "rootDir": "./src",
     "outDir": "./dist",
+    "paths": {
+      "@/*": [
+        "*"
+      ]
+    },
     /* Module & Target */
     "module": "nodenext",
     "moduleResolution": "nodenext",
