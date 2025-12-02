@@ -1,6 +1,6 @@
 {
-  "name": "@soft-iv-beating-party/digicap-web-sdk",
-  "version": "1.0.0",
+  "name": "@digicap/web-sdk",
+  "version": "0.1.0",
   "description": "",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -26,9 +26,12 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsup src/index.ts src/api/index.ts src/schema/index.ts --format esm,cjs --dts --clean"
   },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SoftIVBeatingParty/Digicap-Web-API-Schema.git"
+    "url": "git+https://github.com/SoftIVBeatingParty/Digicap-Web-SDK.git"
   },
   "keywords": [],
   "author": "",
