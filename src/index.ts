@@ -1,4 +1,12 @@
-import * as schema from "./schema/index.js";
-import * as api from "./api/index.js";
-
-export { schema, api };
+export * from '@/schema/article.js'
+export * from '@/schema/area.js'
+export * from '@/schema/museum.js'
+export * from '@/schema/spot.js'
+export * from '@/schema/tag.js'
+export * from '@/schema/user.js'
+export * from '@/api/article.js'
+export * from '@/api/area.js'
+export * from '@/api/museum.js'
+export * from '@/api/spot.js'
+export * from '@/api/tag.js'
+export * from '@/api/user.js'

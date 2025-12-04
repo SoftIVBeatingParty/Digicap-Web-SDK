@@ -6,30 +6,33 @@ export type ArticleId = string & { readonly __brand: unique symbol }
 /** Zod Schema for an article id (Branded UUID) */
 export const ArticleIdSchema = z.uuid().transform(id => id as ArticleId)
 
-/** Zod Schema for creating an article, using the POST method */
-export const CreateArticleSchema = z.object({
+/** Zod Schema for an article */
+export const ArticleSchema = z.object({
+    id: ArticleIdSchema,
     name: z.string().min(1).max(255),
     body: z.string().min(0).max(4096),
-}).strip()
-
-/** Type for creating an article */
-export type CreateArticle = z.infer<typeof CreateArticleSchema>
-
-/** Zod Schema for updating an article, using the PATCH method  */
-export const UpdateArticleSchema = CreateArticleSchema.partial().strip()
-
-/** Type for updating an article */
-export type UpdateArticle = z.infer<typeof UpdateArticleSchema>
-
-/** Zod Schema for an article */
-export const ArticleSchema = CreateArticleSchema.extend({
-    id: ArticleIdSchema,
     createdAt: z.iso.datetime().transform(s => new Date(s)),
     updatedAt: z.iso.datetime().transform(s => new Date(s)),
 }).strip()
 
 /** Type for an article, as responded by the API */
 export type Article = z.infer<typeof ArticleSchema>
+
+/** Zod Schema for creating an article, using the POST method */
+export const CreateArticleSchema = ArticleSchema.omit({
+    id: true,
+    createdAt: true,
+    updatedAt: true,
+}).strip()
+
+/** Type for creating an article */
+export type CreateArticle = z.infer<typeof CreateArticleSchema>
+
+/** Zod Schema for updating an article, using the PATCH method  */
+export const UpdateArticleSchema = CreateArticleSchema
+
+/** Type for updating an article */
+export type UpdateArticle = z.infer<typeof UpdateArticleSchema>
 
 /** Zod Schema for an article, as responded by the API */
 export const ArticleListSchema = z.array(ArticleSchema)

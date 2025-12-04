@@ -6,10 +6,23 @@ export type MuseumId = string & { readonly __brand: unique symbol }
 /** Zod Schema for a museum id (Branded UUID) */
 export const MuseumIdSchema = z.uuid().transform(id => id as MuseumId)
 
-/** Zod Schema for creating a museum, using the POST method */
-export const CreateMuseumSchema = z.object({
+/** Zod Schema for a museum */
+export const MuseumSchema = z.object({
+    id: MuseumIdSchema,
     name: z.string().min(1).max(255),
-}).strict()
+    createdAt: z.iso.datetime().transform(s => new Date(s)),
+    updatedAt: z.iso.datetime().transform(s => new Date(s)),
+}).strip()
+
+/** Type for a museum, as responded by the API */
+export type Museum = z.infer<typeof MuseumSchema>
+
+/** Zod Schema for creating a museum, using the POST method */
+export const CreateMuseumSchema = MuseumSchema.omit({
+    id: true,
+    createdAt: true,
+    updatedAt: true,
+}).strip()
 
 /** Type for creating a museum */
 export type CreateMuseum = z.infer<typeof CreateMuseumSchema>
@@ -19,16 +32,6 @@ export const UpdateMuseumSchema = CreateMuseumSchema.partial().strip()
 
 /** Type for updating a museum */
 export type UpdateMuseum = z.infer<typeof UpdateMuseumSchema>
-
-/** Zod Schema for a museum */
-export const MuseumSchema = CreateMuseumSchema.extend({
-    id: MuseumIdSchema,
-    createdAt: z.iso.datetime().transform(s => new Date(s)),
-    updatedAt: z.iso.datetime().transform(s => new Date(s)),
-}).strict()
-
-/** Type for a museum, as responded by the API */
-export type Museum = z.infer<typeof MuseumSchema>
 
 /** Zod Schema for a museum list, as responded by the API */
 export const MuseumListSchema = z.array(MuseumSchema)

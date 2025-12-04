@@ -1,6 +1,0 @@
-export * from '@/api/article.js'
-export * from '@/api/area.js'
-export * from '@/api/museum.js'
-export * from '@/api/spot.js'
-export * from '@/api/tag.js'
-export * from '@/api/user.js'

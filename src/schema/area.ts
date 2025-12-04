@@ -6,10 +6,23 @@ export type AreaId = string & { readonly __brand: unique symbol }
 /** Zod Schema for an area id (Branded UUID) */
 export const AreaIdSchema = z.uuid().transform(id => id as AreaId)
 
-/** Zod Schema for creating an area, using the POST method */
-export const CreateAreaSchema = z.object({
+/** Zod Schema for an area */
+export const AreaSchema = z.object({
+    id: AreaIdSchema,
     name: z.string().min(1).max(255),
+    createdAt: z.iso.datetime().transform(s => new Date(s)),
+    updatedAt: z.iso.datetime().transform(s => new Date(s)),
 }).strip()
+
+/** Type for an area, as responded by the API */
+export type Area = z.infer<typeof AreaSchema>
+
+/** Zod Schema for creating an area, using the POST method */
+export const CreateAreaSchema = AreaSchema.omit({
+    id: true,
+    createdAt: true,
+    updatedAt: true,
+})
 
 /** Type for creating an area */
 export type CreateArea = z.infer<typeof CreateAreaSchema>
@@ -19,16 +32,6 @@ export const UpdateAreaSchema = CreateAreaSchema.partial().strip()
 
 /** Type for updating an area */
 export type UpdateArea = z.infer<typeof UpdateAreaSchema>
-
-/** Zod Schema for an area */
-export const AreaSchema = CreateAreaSchema.extend({
-    id: AreaIdSchema,
-    createdAt: z.iso.datetime().transform(s => new Date(s)),
-    updatedAt: z.iso.datetime().transform(s => new Date(s)),
-}).strip()
-
-/** Type for an area, as responded by the API */
-export type Area = z.infer<typeof AreaSchema>
 
 /** Zod Schema for an area, as responded by the API */
 export const AreaListSchema = z.array(AreaSchema)

@@ -1,6 +1,0 @@
-export * from '@/schema/article.js'
-export * from '@/schema/area.js'
-export * from '@/schema/museum.js'
-export * from '@/schema/spot.js'
-export * from '@/schema/tag.js'
-export * from '@/schema/user.js'

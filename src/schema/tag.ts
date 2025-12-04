@@ -6,29 +6,32 @@ export type TagId = string & { readonly __brand: unique symbol }
 /** Zod Schema for a tag id (Branded UUID) */
 export const TagIdSchema = z.uuid().transform(id => id as TagId)
 
-/** Zod Schema for creating a tag, using the POST method */
-export const CreateTagSchema = z.object({
-    name: z.string().min(1).max(255),
-}).strip()
-
-/** Type for creating a tag (Request body for POST /tags) */
-export type CreateTag = z.infer<typeof CreateTagSchema>
-
-/** Zod Schema for updating a tag, using the PATCH method. Allows partial fields and strips unrecognized keys. */
-export const UpdateTagSchema = CreateTagSchema.partial().strip()
-
-/** Type for updating a tag (Request body for PATCH /tags/:id) */
-export type UpdateTag = z.infer<typeof UpdateTagSchema>
-
 /** Zod Schema for a tag as returned by the API */
-export const TagSchema = CreateTagSchema.extend({
+export const TagSchema = z.object({
     id: TagIdSchema,
+    name: z.string().min(1).max(255),
     createdAt: z.iso.datetime().transform(s => new Date(s)),
     updatedAt: z.iso.datetime().transform(s => new Date(s)),
 }).strip()
 
 /** Type for a tag, as responded by the API */
 export type Tag = z.infer<typeof TagSchema>
+
+/** Zod Schema for creating a tag, using the POST method */
+export const CreateTagSchema = TagSchema.omit({
+    id: true,
+    createdAt: true,
+    updatedAt: true
+}).strip()
+
+/** Type for creating a tag (Request body for POST /tags) */
+export type CreateTag = z.infer<typeof CreateTagSchema>
+
+/** Zod Schema for updating a tag, using the PATCH method. Allows partial fields and strips unrecognized keys. */
+export const UpdateTagSchema = CreateTagSchema
+
+/** Type for updating a tag (Request body for PATCH /tags/:id) */
+export type UpdateTag = z.infer<typeof UpdateTagSchema>
 
 /** Zod Schema for an array of tags */
 export const TagListSchema = z.array(TagSchema)
