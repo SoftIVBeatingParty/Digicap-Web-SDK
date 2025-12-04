@@ -12,7 +12,7 @@ import {
     type UpdateEvent
 } from "@/schema/event.js"
 
-export async function getEventList(museumId: MuseumId) {
+export async function getEventList(museumId: MuseumId): Promise<EventList> {
     const response = await http.get(`/museums/${museumId}/events`)
     return EventListSchema.parse(response.data)
 }

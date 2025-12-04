@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { UserIdListSchema, UserIdSchema } from "./user.js";
 
 /** Type for a museum id (Nominal Type) */
 export type MuseumId = string & { readonly __brand: unique symbol }
@@ -6,12 +7,20 @@ export type MuseumId = string & { readonly __brand: unique symbol }
 /** Zod Schema for a museum id (Branded UUID) */
 export const MuseumIdSchema = z.uuid().transform(id => id as MuseumId)
 
+/** Zod Schema for an array of museum ids */
+export const MuseumIdListSchema = z.array(MuseumIdSchema)
+
+/** Type for an array of museum ids */
+export type MuseumIdList = z.infer<typeof MuseumIdListSchema>
+
 /** Zod Schema for a museum */
 export const MuseumSchema = z.object({
     id: MuseumIdSchema,
     name: z.string().min(1).max(255),
     createdAt: z.iso.datetime().transform(s => new Date(s)),
     updatedAt: z.iso.datetime().transform(s => new Date(s)),
+    ownerId: UserIdSchema,
+    userIdList: UserIdListSchema,
 }).strip()
 
 /** Type for a museum, as responded by the API */

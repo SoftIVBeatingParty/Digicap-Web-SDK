@@ -6,6 +6,12 @@ export type TagId = string & { readonly __brand: unique symbol }
 /** Zod Schema for a tag id (Branded UUID) */
 export const TagIdSchema = z.uuid().transform(id => id as TagId)
 
+/** Zod Schema for an array of tag ids */
+export const TagIdListSchema = z.array(TagIdSchema)
+
+/** Type for an array of tag ids */
+export type TagIdList = z.infer<typeof TagIdListSchema>
+
 /** Zod Schema for a tag as returned by the API */
 export const TagSchema = z.object({
     id: TagIdSchema,

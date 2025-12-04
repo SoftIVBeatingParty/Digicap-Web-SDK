@@ -6,6 +6,12 @@ export type AudioId = string & { readonly __brand: unique symbol }
 /** Zod Schema for an audio id (Branded UUID) */
 export const AudioIdSchema = z.uuid().transform(id => id as AudioId)
 
+/** Zod Schema for an array of audio ids */
+export const AudioIdListSchema = z.array(AudioIdSchema)
+
+/** Type for an array of audio ids */
+export type AudioIdList = z.infer<typeof AudioIdListSchema>
+
 /** Zod Schema for an audio */
 export const AudioSchema = z.object({
     id: AudioIdSchema,

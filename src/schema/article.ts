@@ -1,10 +1,20 @@
 import { z } from "zod";
+import { PictureIdSchema } from "@/schema/picture.js";
+import { SpotIdSchema } from "./spot.js";
+import { AudioIdSchema } from "./audio.js";
+import { EventIdListSchema } from "./event.js";
 
 /** Zod Schema for an area id (Branded UUID) */
 export type ArticleId = string & { readonly __brand: unique symbol }
 
 /** Zod Schema for an article id (Branded UUID) */
 export const ArticleIdSchema = z.uuid().transform(id => id as ArticleId)
+
+/** Zod Schema for an array of article ids */
+export const ArticleIdListSchema = z.array(ArticleIdSchema)
+
+/** Type for an array of article ids */
+export type ArticleIdList = z.infer<typeof ArticleIdListSchema>
 
 /** Zod Schema for an article */
 export const ArticleSchema = z.object({
@@ -13,6 +23,10 @@ export const ArticleSchema = z.object({
     body: z.string().min(0).max(4096),
     createdAt: z.iso.datetime().transform(s => new Date(s)),
     updatedAt: z.iso.datetime().transform(s => new Date(s)),
+    spotId: SpotIdSchema.nullable(),
+    pictureId: PictureIdSchema.nullable(),
+    audioId: AudioIdSchema.nullable(),
+    eventIdList: EventIdListSchema,
 }).strip()
 
 /** Type for an article, as responded by the API */

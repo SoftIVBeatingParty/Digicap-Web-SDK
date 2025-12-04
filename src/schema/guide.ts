@@ -6,6 +6,12 @@ export type GuideId = string & { readonly __brand: unique symbol }
 /** Zod Schema for a guide id (Branded UUID) */
 export const GuideIdSchema = z.uuid().transform(id => id as GuideId)
 
+/** Zod Schema for an array of guide ids */
+export const GuideIdListSchema = z.array(GuideIdSchema)
+
+/** Type for an array of guide ids */
+export type GuideIdList = z.infer<typeof GuideIdListSchema>
+
 /** Zod Schema for a guide */
 export const GuideSchema = z.object({
     id: GuideIdSchema,

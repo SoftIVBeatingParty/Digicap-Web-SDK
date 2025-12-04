@@ -6,6 +6,12 @@ export type PictureId = string & { readonly __brand: unique symbol }
 /** Zod Schema for an picture id (Branded UUID) */
 export const PictureIdSchema = z.uuid().transform(id => id as PictureId)
 
+/** Zod Schema for an array of picture ids */
+export const PictureIdListSchema = z.array(PictureIdSchema)
+
+/** Type for an array of picture ids */
+export type PictureIdList = z.infer<typeof PictureIdListSchema>
+
 /** Zod Schema for an picture */
 export const PictureSchema = z.object({
     id: PictureIdSchema,
