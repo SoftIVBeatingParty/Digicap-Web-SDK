@@ -2,12 +2,13 @@ import { http } from "@/lib/http/axios.js"
 import {
     MuseumListSchema,
     MuseumSchema,
+    CreateMuseumSchema,
+    UpdateMuseumSchema,
     type Museum,
     type MuseumId,
     type MuseumList,
     type CreateMuseum,
     type UpdateMuseum,
-    CreateMuseumSchema
 } from "../schema/museum.js"
 
 export async function getMuseumList(): Promise<MuseumList> {
@@ -27,7 +28,7 @@ export async function createMuseum(museum: CreateMuseum): Promise<Museum> {
 }
 
 export async function updateMuseum(id: MuseumId, museum: UpdateMuseum): Promise<Museum> {
-    const body = CreateMuseumSchema.parse(museum)
+    const body = UpdateMuseumSchema.parse(museum)
     const response = await http.patch(`/museums/${id}`, body)
     return MuseumSchema.parse(response.data)
 }
