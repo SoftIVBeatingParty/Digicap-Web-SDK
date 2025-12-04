@@ -8,7 +8,7 @@ import {
 } from "@/schema/user.js"
 
 export async function getUser(userId: UserId): Promise<User> {
-    const response = await http.get(`/users/${userId}}`)
+    const response = await http.get(`/users/${userId}`)
     return UserSchema.parse(response.data)
 }
 
