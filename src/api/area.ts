@@ -10,7 +10,7 @@ import {
     type AreaList,
     type CreateArea,
     type UpdateArea
-} from "../schema/area.js"
+} from "@/schema/area.js"
 
 export async function getAreaList(museumId: MuseumId): Promise<AreaList> {
     const response = await http.get(`/museums/${museumId}/areas`)

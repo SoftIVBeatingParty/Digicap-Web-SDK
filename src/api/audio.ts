@@ -5,7 +5,7 @@ import {
     AudioSchema,
     type Audio,
     type AudioList,
-} from "../schema/audio.js"
+} from "@/schema/audio.js"
 
 export async function getAudioList(museumId: MuseumId): Promise<AudioList> {
     const response = await http.get(`/museums/${museumId}/audios`)

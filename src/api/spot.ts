@@ -10,7 +10,7 @@ import {
     type SpotList,
     type CreateSpot,
     type UpdateSpot
-} from "../schema/spot.js"
+} from "@/schema/spot.js"
 
 export async function getSpotList(museumId: MuseumId): Promise<SpotList> {
     const response = await http.get(`/museums/${museumId}/spots`)

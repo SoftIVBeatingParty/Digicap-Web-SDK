@@ -10,7 +10,7 @@ import {
     type ArticleList,
     type CreateArticle,
     type UpdateArticle
-} from '../schema/article.js'
+} from '@/schema/article.js'
 
 export async function getArticleList(museumId: MuseumId): Promise<ArticleList> {
     const response = await http.get(`/museums/${museumId}/articles`)

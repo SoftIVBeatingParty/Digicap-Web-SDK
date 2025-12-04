@@ -4,7 +4,7 @@ import {
     UserSchema,
     type User,
     type UserCredentials
-} from "../schema/user.js"
+} from "@/schema/user.js"
 
 export async function signIn(creds: UserCredentials): Promise<User> {
     const body = UserCredentialsSchema.parse(creds)

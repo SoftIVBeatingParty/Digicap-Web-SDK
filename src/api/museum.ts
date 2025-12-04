@@ -9,7 +9,7 @@ import {
     type MuseumList,
     type CreateMuseum,
     type UpdateMuseum,
-} from "../schema/museum.js"
+} from "@/schema/museum.js"
 
 export async function getMuseumList(): Promise<MuseumList> {
     const response = await http.get('/museums')

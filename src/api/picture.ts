@@ -5,7 +5,7 @@ import {
     PictureSchema,
     type Picture,
     type PictureList,
-} from "../schema/picture.js"
+} from "@/schema/picture.js"
 
 export async function getPictureList(museumId: MuseumId): Promise<PictureList> {
     const response = await http.get(`/museums/${museumId}/pictures`)

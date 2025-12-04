@@ -10,7 +10,7 @@ import {
     type TagList,
     type CreateTag,
     type UpdateTag
-} from "../schema/tag.js"
+} from "@/schema/tag.js"
 
 export async function getTagList(museumId: MuseumId): Promise<TagList> {
     const response = await http.get(`/museums/${museumId}/tags`)
