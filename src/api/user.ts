@@ -3,8 +3,14 @@ import {
     UserCredentialsSchema,
     UserSchema,
     type User,
-    type UserCredentials
+    type UserCredentials,
+    type UserId
 } from "@/schema/user.js"
+
+export async function getUser(userId: UserId): Promise<User> {
+    const response = await http.get(`/users/${userId}}`)
+    return UserSchema.parse(response.data)
+}
 
 export async function signIn(creds: UserCredentials): Promise<User> {
     const body = UserCredentialsSchema.parse(creds)
