@@ -19,7 +19,6 @@ export const EventSchema = z.object({
     name: z.string().min(1).max(255),
     createdAt: z.iso.datetime().transform(s => new Date(s)),
     updatedAt: z.iso.datetime().transform(s => new Date(s)),
-    articleIdList: ArticleIdListSchema
 }).strip()
 
 /** Type for an event, as responded by the API */

@@ -26,7 +26,6 @@ export const ArticleSchema = z.object({
     spotId: SpotIdSchema.nullable(),
     pictureId: PictureIdSchema.nullable(),
     audioId: AudioIdSchema.nullable(),
-    eventIdList: EventIdListSchema,
 }).strip()
 
 /** Type for an article, as responded by the API */

@@ -19,7 +19,6 @@ export const UserSchema = z.object({
     email: z.email(),
     createdAt: z.iso.datetime().transform(s => new Date(s)),
     updatedAt: z.iso.datetime().transform(s => new Date(s)),
-    museumIdList: MuseumIdListSchema
 }).strip()
 
 /** Type for a user. */

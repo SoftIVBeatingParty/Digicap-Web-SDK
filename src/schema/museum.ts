@@ -20,7 +20,6 @@ export const MuseumSchema = z.object({
     createdAt: z.iso.datetime().transform(s => new Date(s)),
     updatedAt: z.iso.datetime().transform(s => new Date(s)),
     ownerId: UserIdSchema,
-    userIdList: UserIdListSchema,
 }).strip()
 
 /** Type for a museum, as responded by the API */
