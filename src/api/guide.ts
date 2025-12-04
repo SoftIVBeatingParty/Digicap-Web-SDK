@@ -33,3 +33,7 @@ export async function updateGuide(museumId: MuseumId, id: GuideId, guide: Update
     const response = await http.patch(`/museums/${museumId}/guides/${id}`, body)
     return GuideSchema.parse(response.data)
 }
+
+export async function deleteGuide(museumId: MuseumId, id: GuideId): Promise<void> {
+    await http.delete(`/museums/${museumId}/guides/${id}`)
+}
