@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { UserIdListSchema, UserIdSchema } from "./user.js";
+import { UserIdSchema } from "./user.js";
 
 /** Type for a museum id (Nominal Type) */
 export type MuseumId = string & { readonly __brand: unique symbol }

@@ -1,5 +1,4 @@
 import { z } from "zod"
-import { ArticleIdListSchema, type ArticleId } from "./article.js"
 
 /** Type for an event id (Nominal Type) */
 export type EventId = string & { readonly __brand: unique symbol }
