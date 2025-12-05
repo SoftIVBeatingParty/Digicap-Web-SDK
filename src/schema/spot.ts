@@ -20,8 +20,8 @@ export const SpotSchema = z.object({
     name: z.string().min(1).max(255),
     createdAt: z.iso.datetime().transform(s => new Date(s)),
     updatedAt: z.iso.datetime().transform(s => new Date(s)),
-    areaId: AreaIdSchema,
-    articleId: ArticleIdSchema.nullable()
+    areaId: z.lazy(() => AreaIdSchema),
+    articleId: z.lazy(() => ArticleIdSchema.nullable()),
 }).strip()
 
 /** Type for a spot, as responded by the API */

@@ -22,9 +22,9 @@ export const ArticleSchema = z.object({
     body: z.string().min(0).max(4096),
     createdAt: z.iso.datetime().transform(s => new Date(s)),
     updatedAt: z.iso.datetime().transform(s => new Date(s)),
-    spotId: SpotIdSchema.nullable(),
-    pictureId: PictureIdSchema.nullable(),
-    audioId: AudioIdSchema.nullable(),
+    spotId: z.lazy(() => SpotIdSchema.nullable()),
+    pictureId: z.lazy(() => PictureIdSchema.nullable()),
+    audioId: z.lazy(() => AudioIdSchema.nullable()),
 }).strip()
 
 /** Type for an article, as responded by the API */
