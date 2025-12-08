@@ -23,7 +23,6 @@ export const ArticleSchema = z.object({
     published: z.boolean().default(false),
     createdAt: z.iso.datetime().transform(s => new Date(s)),
     updatedAt: z.iso.datetime().transform(s => new Date(s)),
-    spotId: z.lazy(() => SpotIdSchema.nullable()),
     pictureId: z.lazy(() => PictureIdSchema.nullable()),
     audioId: z.lazy(() => AudioIdSchema.nullable()),
 }).strip()
