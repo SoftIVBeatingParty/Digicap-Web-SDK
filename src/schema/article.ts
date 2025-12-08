@@ -20,6 +20,7 @@ export const ArticleSchema = z.object({
     id: ArticleIdSchema,
     name: z.string().min(1).max(255),
     body: z.string().min(0).max(4096),
+    published: z.boolean().default(false),
     createdAt: z.iso.datetime().transform(s => new Date(s)),
     updatedAt: z.iso.datetime().transform(s => new Date(s)),
     spotId: z.lazy(() => SpotIdSchema.nullable()),
