@@ -1,5 +1,4 @@
-import { z } from "zod";
-import { UserIdSchema } from "./user.js";
+import { z } from "zod"
 
 /** Type for a museum id (Nominal Type) */
 export type MuseumId = string & { readonly __brand: unique symbol }
