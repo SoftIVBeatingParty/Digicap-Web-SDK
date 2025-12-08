@@ -24,10 +24,8 @@ export const GuideSchema = z.object({
 export type Guide = z.infer<typeof GuideSchema>
 
 /** Zod Schema for creating a guide, using the POST method */
-export const CreateGuideSchema = GuideSchema.omit({
-    id: true,
-    createdAt: true,
-    updatedAt: true,
+export const CreateGuideSchema = GuideSchema.pick({
+    name: true
 }).strip()
 
 /** Type for creating a guide */
