@@ -24,10 +24,8 @@ export const TagSchema = z.object({
 export type Tag = z.infer<typeof TagSchema>
 
 /** Zod Schema for creating a tag, using the POST method */
-export const CreateTagSchema = TagSchema.omit({
-    id: true,
-    createdAt: true,
-    updatedAt: true
+export const CreateTagSchema = TagSchema.pick({
+    name: true,
 }).strip()
 
 /** Type for creating a tag (Request body for POST /tags) */

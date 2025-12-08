@@ -26,10 +26,8 @@ export const AreaSchema = z.object({
 export type Area = z.infer<typeof AreaSchema>
 
 /** Zod Schema for creating an area, using the POST method */
-export const CreateAreaSchema = AreaSchema.omit({
-    id: true,
-    createdAt: true,
-    updatedAt: true,
+export const CreateAreaSchema = AreaSchema.pick({
+    name: true,
 }).strip()
 
 /** Type for creating an area */

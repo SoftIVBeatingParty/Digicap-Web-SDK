@@ -31,10 +31,10 @@ export const ArticleSchema = z.object({
 export type Article = z.infer<typeof ArticleSchema>
 
 /** Zod Schema for creating an article, using the POST method */
-export const CreateArticleSchema = ArticleSchema.omit({
-    id: true,
-    createdAt: true,
-    updatedAt: true,
+export const CreateArticleSchema = ArticleSchema.pick({
+    name: true,
+    body: true,
+    published: true,
 }).strip()
 
 /** Type for creating an article */

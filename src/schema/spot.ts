@@ -28,10 +28,9 @@ export const SpotSchema = z.object({
 export type Spot = z.infer<typeof SpotSchema>
 
 /** Zod Schema for creating a spot, using the POST method */
-export const CreateSpotSchema = SpotSchema.omit({
-    id: true,
-    createdAt: true,
-    updatedAt: true,
+export const CreateSpotSchema = SpotSchema.pick({
+    name: true,
+    areaId: true,
 }).strip()
 
 /** Type for creating a spot */

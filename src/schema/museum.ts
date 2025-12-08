@@ -19,17 +19,14 @@ export const MuseumSchema = z.object({
     name: z.string().min(1).max(255),
     createdAt: z.iso.datetime().transform(s => new Date(s)),
     updatedAt: z.iso.datetime().transform(s => new Date(s)),
-    ownerId: z.lazy(() => UserIdSchema),
 }).strip()
 
 /** Type for a museum, as responded by the API */
 export type Museum = z.infer<typeof MuseumSchema>
 
 /** Zod Schema for creating a museum, using the POST method */
-export const CreateMuseumSchema = MuseumSchema.omit({
-    id: true,
-    createdAt: true,
-    updatedAt: true,
+export const CreateMuseumSchema = MuseumSchema.pick({
+    name: true,
 }).strip()
 
 /** Type for creating a museum */
