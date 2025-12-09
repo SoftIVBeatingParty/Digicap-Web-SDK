@@ -32,7 +32,7 @@ export const CreateMuseumSchema = MuseumSchema.pick({
 export type CreateMuseum = z.infer<typeof CreateMuseumSchema>
 
 /** Zod Schema for updating a museum, using the PATCH method  */
-export const UpdateMuseumSchema = CreateMuseumSchema.partial().strip()
+export const UpdateMuseumSchema = CreateMuseumSchema
 
 /** Type for updating a museum */
 export type UpdateMuseum = z.infer<typeof UpdateMuseumSchema>

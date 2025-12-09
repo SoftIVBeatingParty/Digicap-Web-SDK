@@ -34,7 +34,6 @@ export type Article = z.infer<typeof ArticleSchema>
 export const CreateArticleSchema = ArticleSchema.pick({
     name: true,
     body: true,
-    published: true,
 }).strip()
 
 /** Type for creating an article */

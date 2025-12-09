@@ -24,10 +24,8 @@ export const EventSchema = z.object({
 export type Event = z.infer<typeof EventSchema>
 
 /** Zod Schema for creating an event, using the POST method */
-export const CreateEventSchema = EventSchema.omit({
-    id: true,
-    createdAt: true,
-    updatedAt: true,
+export const CreateEventSchema = EventSchema.pick({
+    name: true
 }).strip()
 
 /** Type for creating an event */
