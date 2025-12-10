@@ -1,0 +1,98 @@
+import {
+    MuseumListSchema,
+    MuseumSchema,
+    CreateMuseumSchema,
+    UpdateMuseumSchema,
+    type Museum,
+    type MuseumId,
+    type MuseumList,
+    type CreateMuseum,
+    type UpdateMuseum,
+} from "@/schema/museum.js"
+import { UserIdSchema, type UserId } from "@/schema/user.js"
+
+export class MuseumRepository {
+
+    readonly baseURL: string
+
+    constructor(baseURL: string) {
+        this.baseURL = `${baseURL}/museums`
+    }
+
+    async collect(): Promise<MuseumList> {
+        const url = `${this.baseURL}`
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+        })
+        if (!response.ok) { throw new Error(response.statusText) }
+        return MuseumListSchema.parse(await response.json())
+    }
+
+    async get(id: MuseumId): Promise<Museum> {
+        const url = `${this.baseURL}/${id}`
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+        })
+        if (!response.ok) { throw new Error(response.statusText) }
+        return MuseumSchema.parse(await response.json())
+    }
+
+    async create(museum: CreateMuseum): Promise<Museum> {
+        const url = `${this.baseURL}`
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify(CreateMuseumSchema.parse(museum)),
+        })
+        if (!response.ok) { throw new Error(response.statusText) }
+        return MuseumSchema.parse(await response.json())
+    }
+
+    async update(id: MuseumId, museum: UpdateMuseum): Promise<Museum> {
+        const url = `${this.baseURL}/${id}`
+        const response = await fetch(url, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify(UpdateMuseumSchema.parse(museum)),
+        })
+        if (!response.ok) { throw new Error(response.statusText) }
+        return MuseumSchema.parse(await response.json())
+    }
+
+    async delete(id: MuseumId): Promise<void> {
+        const url = `${this.baseURL}/${id}`
+        const response = await fetch(url, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+        })
+        if (!response.ok) { throw new Error(response.statusText) }
+    }
+
+    async invite(userId: UserId): Promise<void> {
+        const url = `${this.baseURL}/users`
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify(UserIdSchema.parse(userId))
+        })
+        if (!response.ok) { throw new Error(response.statusText) }
+    }
+
+    async reject(userId: UserId): Promise<void> {
+        const url = `${this.baseURL}/users/${userId}`
+        const response = await fetch(url, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+        })
+        if (!response.ok) { throw new Error(response.statusText) }
+    }
+}

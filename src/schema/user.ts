@@ -22,12 +22,3 @@ export const UserSchema = z.object({
 
 /** Type for a user. */
 export type User = z.infer<typeof UserSchema>
-
-/** Zod Schema for user credentials, used for sign-in and sign-up requests. */
-export const UserCredentialsSchema = z.object({
-    email: z.email(),
-    password: z.string().min(8).max(32)
-}).strip()
-
-/** Type for user credentials. */
-export type UserCredentials = z.infer<typeof UserCredentialsSchema>
