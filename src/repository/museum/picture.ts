@@ -3,6 +3,7 @@ import {
     PictureListSchema,
     PictureSchema,
     type Picture,
+    type PictureId,
     type PictureList,
 } from "@/schema/picture.js"
 
@@ -25,7 +26,7 @@ export class PictureRepository {
         return PictureListSchema.parse(await response.json())
     }
 
-    async get(id: string): Promise<Picture> {
+    async get(id: PictureId): Promise<Picture> {
         const url = `${this.baseURL}/${id}`
         const response = await fetch(url, {
             method: 'GET',
@@ -49,7 +50,7 @@ export class PictureRepository {
         return PictureSchema.parse(await response.json())
     }
 
-    async delete(id: string): Promise<void> {
+    async delete(id: PictureId): Promise<void> {
         const url = `${this.baseURL}/${id}`
         const response = await fetch(url, {
             method: 'DELETE',
