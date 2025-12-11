@@ -2,8 +2,6 @@ import type { MuseumId } from '@/schema/museum.js'
 import {
     ArticleListSchema,
     ArticleSchema,
-    CreateArticleSchema,
-    UpdateArticleSchema,
     type Article,
     type ArticleId,
     type ArticleList,
@@ -47,7 +45,7 @@ export class ArticleRepository {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
-            body: JSON.stringify(CreateArticleSchema.parse(article)),
+            body: JSON.stringify(article),
         })
         if (!response.ok) { throw new Error(response.statusText) }
         return ArticleSchema.parse(await response.json())
@@ -59,7 +57,7 @@ export class ArticleRepository {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
-            body: JSON.stringify(UpdateArticleSchema.parse(article)),
+            body: JSON.stringify(article),
         })
         if (!response.ok) { throw new Error(response.statusText) }
         return ArticleSchema.parse(await response.json())

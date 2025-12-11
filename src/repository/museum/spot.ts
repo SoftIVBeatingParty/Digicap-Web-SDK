@@ -2,13 +2,11 @@ import type { MuseumId } from "@/schema/museum.js"
 import {
     SpotListSchema,
     SpotSchema,
-    CreateSpotSchema,
-    UpdateSpotSchema,
     type Spot,
     type SpotId,
     type SpotList,
     type CreateSpot,
-    type UpdateSpot
+    type UpdateSpot,
 } from "@/schema/spot.js"
 
 export class SpotRepository {
@@ -19,7 +17,7 @@ export class SpotRepository {
         this.baseURL = `${baseURL}/museums/${museumId}/spots`
     }
 
-    async collect(museumId: MuseumId): Promise<SpotList> {
+    async collect(): Promise<SpotList> {
         const url = `${this.baseURL}`
         const response = await fetch(url, {
             method: 'GET',
@@ -47,7 +45,7 @@ export class SpotRepository {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
-            body: JSON.stringify(CreateSpotSchema.parse(spot)),
+            body: JSON.stringify(spot),
         })
         if (!response.ok) { throw new Error(response.statusText) }
         return SpotSchema.parse(await response.json())
@@ -59,7 +57,7 @@ export class SpotRepository {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
-            body: JSON.stringify(UpdateSpotSchema.parse(spot)),
+            body: JSON.stringify(spot),
         })
         if (!response.ok) { throw new Error(response.statusText) }
         return SpotSchema.parse(await response.json())
@@ -74,5 +72,4 @@ export class SpotRepository {
         })
         if (!response.ok) { throw new Error(response.statusText) }
     }
-
 }

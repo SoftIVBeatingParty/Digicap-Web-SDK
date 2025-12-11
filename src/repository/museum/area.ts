@@ -2,8 +2,6 @@ import type { MuseumId } from '@/schema/museum.js'
 import {
     AreaListSchema,
     AreaSchema,
-    CreateAreaSchema,
-    UpdateAreaSchema,
     type Area,
     type AreaId,
     type AreaList,
@@ -47,7 +45,7 @@ export class AreaRepository {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
-            body: JSON.stringify(CreateAreaSchema.parse(area)),
+            body: JSON.stringify(area),
         })
         if (!response.ok) { throw new Error(response.statusText) }
         return AreaSchema.parse(await response.json())
@@ -59,7 +57,7 @@ export class AreaRepository {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
-            body: JSON.stringify(UpdateAreaSchema.parse(area)),
+            body: JSON.stringify(area),
         })
         if (!response.ok) { throw new Error(response.statusText) }
         return AreaSchema.parse(await response.json())

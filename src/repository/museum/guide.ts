@@ -47,7 +47,7 @@ export class GuideRepository {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
-            body: JSON.stringify(CreateGuideSchema.parse(guide)),
+            body: JSON.stringify(guide),
         })
         if (!response.ok) { throw new Error(response.statusText) }
         return GuideSchema.parse(await response.json())
@@ -59,7 +59,7 @@ export class GuideRepository {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
-            body: JSON.stringify(UpdateGuideSchema.parse(guide)),
+            body: JSON.stringify(guide),
         })
         if (!response.ok) { throw new Error(response.statusText) }
         return GuideSchema.parse(await response.json())

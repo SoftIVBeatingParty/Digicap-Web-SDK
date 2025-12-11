@@ -1,15 +1,13 @@
+import type { UserId } from "@/schema/user.js"
 import {
     MuseumListSchema,
     MuseumSchema,
-    CreateMuseumSchema,
-    UpdateMuseumSchema,
     type Museum,
     type MuseumId,
     type MuseumList,
     type CreateMuseum,
     type UpdateMuseum,
 } from "@/schema/museum.js"
-import { UserIdSchema, type UserId } from "@/schema/user.js"
 
 export class MuseumRepository {
 
@@ -47,7 +45,7 @@ export class MuseumRepository {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
-            body: JSON.stringify(CreateMuseumSchema.parse(museum)),
+            body: JSON.stringify(museum),
         })
         if (!response.ok) { throw new Error(response.statusText) }
         return MuseumSchema.parse(await response.json())
@@ -59,7 +57,7 @@ export class MuseumRepository {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
-            body: JSON.stringify(UpdateMuseumSchema.parse(museum)),
+            body: JSON.stringify(museum),
         })
         if (!response.ok) { throw new Error(response.statusText) }
         return MuseumSchema.parse(await response.json())
@@ -81,7 +79,7 @@ export class MuseumRepository {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
-            body: JSON.stringify(UserIdSchema.parse(userId))
+            body: JSON.stringify(userId)
         })
         if (!response.ok) { throw new Error(response.statusText) }
     }

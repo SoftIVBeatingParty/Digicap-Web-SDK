@@ -2,8 +2,6 @@ import type { MuseumId } from "@/schema/museum.js"
 import {
     TagListSchema,
     TagSchema,
-    CreateTagSchema,
-    UpdateTagSchema,
     type Tag,
     type TagId,
     type TagList,
@@ -19,7 +17,7 @@ export class TagRepository {
         this.baseURL = `${baseURL}/museums/${museumId}/tags`
     }
 
-    async collect(museumId: MuseumId): Promise<TagList> {
+    async collect(): Promise<TagList> {
         const url = `${this.baseURL}`
         const response = await fetch(url, {
             method: 'GET',
@@ -30,7 +28,7 @@ export class TagRepository {
         return TagListSchema.parse(await response.json())
     }
 
-    async get(museumId: MuseumId, id: TagId): Promise<Tag> {
+    async get(id: TagId): Promise<Tag> {
         const url = `${this.baseURL}/${id}`
         const response = await fetch(url, {
             method: 'GET',
@@ -41,31 +39,31 @@ export class TagRepository {
         return TagSchema.parse(await response.json())
     }
 
-    async create(museumId: MuseumId, tag: CreateTag): Promise<Tag> {
+    async create(tag: CreateTag): Promise<Tag> {
         const url = `${this.baseURL}`
         const response = await fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
-            body: JSON.stringify(CreateTagSchema.parse(tag))
+            body: JSON.stringify(tag)
         })
         if (!response.ok) { throw new Error(response.statusText) }
         return TagSchema.parse(await response.json())
     }
 
-    async update(museumId: MuseumId, id: TagId, tag: UpdateTag): Promise<Tag> {
+    async update(id: TagId, tag: UpdateTag): Promise<Tag> {
         const url = `${this.baseURL}/${id}`
         const response = await fetch(url, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
-            body: JSON.stringify(UpdateTagSchema.parse(tag))
+            body: JSON.stringify(tag)
         })
         if (!response.ok) { throw new Error(response.statusText) }
         return TagSchema.parse(await response.json())
     }
 
-    async delete(museumId: MuseumId, id: TagId): Promise<void> {
+    async delete(id: TagId): Promise<void> {
         const url = `${this.baseURL}/${id}`
         const response = await fetch(url, {
             method: 'DELETE',

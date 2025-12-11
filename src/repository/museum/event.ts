@@ -2,8 +2,6 @@ import type { MuseumId } from "@/schema/museum.js"
 import {
     EventListSchema,
     EventSchema,
-    CreateEventSchema,
-    UpdateEventSchema,
     type Event,
     type EventId,
     type EventList,
@@ -46,7 +44,7 @@ export class EventRepository {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
-            body: JSON.stringify(CreateEventSchema.parse(event)),
+            body: JSON.stringify(event),
         })
         if (!response.ok) { throw new Error(response.statusText) }
         return EventSchema.parse(await response.json())
@@ -58,7 +56,7 @@ export class EventRepository {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
-            body: JSON.stringify(UpdateEventSchema.parse(event)),
+            body: JSON.stringify(event),
         })
         if (!response.ok) { throw new Error(response.statusText) }
         return EventSchema.parse(await response.json())

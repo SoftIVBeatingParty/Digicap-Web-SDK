@@ -1,4 +1,4 @@
-import { CredentialsSchema, type Credentials } from "@/schema/auth.js"
+import type { Credentials } from "@/schema/auth.js"
 import {
     UserSchema,
     type User,
@@ -14,7 +14,7 @@ export class AuthRepository {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
-            body: JSON.stringify(CredentialsSchema.parse(creds))
+            body: JSON.stringify(creds)
         })
         if (!response.ok) { throw new Error(response.statusText) }
         return UserSchema.parse(await response.json())
@@ -26,7 +26,7 @@ export class AuthRepository {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
-            body: JSON.stringify(CredentialsSchema.parse(creds))
+            body: JSON.stringify(creds)
         })
         if (!response.ok) { throw new Error(response.statusText) }
         return UserSchema.parse(await response.json())
