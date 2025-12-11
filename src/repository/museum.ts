@@ -42,7 +42,7 @@ export class MuseumRepository {
     async create(museum: CreateMuseum): Promise<Museum> {
         const url = `${this.baseURL}`
         const response = await fetch(url, {
-            method: 'GET',
+            method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
             body: JSON.stringify(museum),
