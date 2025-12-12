@@ -1,12 +1,13 @@
 import { MuseumRepository } from "../src/repository/museum";
 import { AuthRepository } from "../src/repository/auth";
+import testFetch from "./testFetch";
 
 /** ← ここにテスト対象 API サーバーの URL を入れる */
 const BASE_URL = "http://localhost:8080";
 
 async function main() {
-    const museumRepo = new MuseumRepository(BASE_URL);
-    const authRepo = new AuthRepository(BASE_URL);
+    const museumRepo = new MuseumRepository(BASE_URL, testFetch);
+    const authRepo = new AuthRepository(BASE_URL, testFetch);
 
     console.log("=== Museum API Test Start ===");
 

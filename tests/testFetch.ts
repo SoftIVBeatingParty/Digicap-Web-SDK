@@ -5,14 +5,17 @@ let cookies: string = ""
 const testFetch: FetchLike = async (
     input: RequestInfo | URL,
     init?: RequestInit | undefined
-) {
+) => {
     const res = await fetch(input, {
         ...init, headers: {
             ...init?.headers,
-            cookies
+            cookie: cookies
         }
     })
-    cookies = res.headers.get('Set-Cookie') ?? ""
+    const newCookies = res.headers.get('set-cookie') 
+    if (newCookies) {
+        cookies = newCookies.split(';')[0]
+    }
     return res
 }
 
