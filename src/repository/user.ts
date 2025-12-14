@@ -1,4 +1,4 @@
-import type { FetchLike } from "@/index.js"
+import type { Fetch } from "@/index.js"
 import {
     UserSchema,
     type User,
@@ -7,7 +7,7 @@ import {
 
 export class UserRepository {
 
-    constructor(readonly baseURL: string, readonly fetch: FetchLike = fetch) { }
+    constructor(readonly baseURL: string, readonly fetch: Fetch = fetch) { }
 
     async get(userId: UserId): Promise<User> {
         const url = `${this.baseURL}/users/${userId}`

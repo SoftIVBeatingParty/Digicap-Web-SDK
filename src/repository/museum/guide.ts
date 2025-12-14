@@ -1,9 +1,8 @@
 import type { MuseumId } from "@/schema/museum.js"
+import type { Fetch } from "@/index.js"
 import {
     GuideListSchema,
     GuideSchema,
-    CreateGuideSchema,
-    UpdateGuideSchema,
     type Guide,
     type GuideId,
     type GuideList,
@@ -15,13 +14,13 @@ export class GuideRepository {
 
     readonly baseURL: string
 
-    constructor(baseURL: string, museumId: MuseumId) {
+    constructor(baseURL: string, museumId: MuseumId, readonly fetch: Fetch = fetch) {
         this.baseURL = `${baseURL}/museums/${museumId}/guides`
     }
 
     async collect(): Promise<GuideList> {
         const url = `${this.baseURL}`
-        const response = await fetch(url, {
+        const response = await this.fetch(url, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
@@ -32,7 +31,7 @@ export class GuideRepository {
 
     async get(id: GuideId): Promise<Guide> {
         const url = `${this.baseURL}/${id}`
-        const response = await fetch(url, {
+        const response = await this.fetch(url, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
@@ -43,7 +42,7 @@ export class GuideRepository {
 
     async create(guide: CreateGuide): Promise<Guide> {
         const url = `${this.baseURL}`
-        const response = await fetch(url, {
+        const response = await this.fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
@@ -55,7 +54,7 @@ export class GuideRepository {
 
     async update(id: GuideId, guide: UpdateGuide): Promise<Guide> {
         const url = `${this.baseURL}/${id}`
-        const response = await fetch(url, {
+        const response = await this.fetch(url, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
@@ -67,7 +66,7 @@ export class GuideRepository {
 
     async delete(id: GuideId): Promise<void> {
         const url = `${this.baseURL}/${id}`
-        const response = await fetch(url, {
+        const response = await this.fetch(url, {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',

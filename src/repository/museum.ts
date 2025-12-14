@@ -1,5 +1,5 @@
 import type { UserId } from "@/schema/user.js"
-import type { FetchLike } from "@/index.js"
+import type { Fetch } from "@/index.js"
 import {
     MuseumListSchema,
     MuseumSchema,
@@ -12,7 +12,7 @@ import {
 
 export class MuseumRepository {
 
-    constructor(readonly baseURL: string, readonly fetch: FetchLike = fetch) {
+    constructor(readonly baseURL: string, readonly fetch: Fetch = fetch) {
         this.baseURL = `${baseURL}/museums`
      }
 

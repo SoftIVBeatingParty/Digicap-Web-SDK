@@ -1,5 +1,5 @@
 import type { Credentials } from "@/schema/auth.js"
-import type { FetchLike } from "@/index.js"
+import type { Fetch } from "@/index.js"
 import {
     UserSchema,
     type User,
@@ -7,7 +7,7 @@ import {
 
 export class AuthRepository {
 
-    constructor(readonly baseURL: string, readonly fetch: FetchLike = fetch) { }
+    constructor(readonly baseURL: string, readonly fetch: Fetch = fetch) { }
 
     async signup(creds: Credentials): Promise<User> {
         const url = `${this.baseURL}/auth/signup`
