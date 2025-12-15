@@ -33,10 +33,10 @@ export class UserRepository {
         if (!response.ok) { throw new Error(response.statusText) }
         return UserSchema.parse(await response.json())
     }
-    
+
         async getMuseums(): Promise<MuseumList> {
             const url = `/users/me/museums`
-            const response = await this.fetch(url, {
+            const response = await fetch(url, {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
