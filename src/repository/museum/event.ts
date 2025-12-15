@@ -1,5 +1,4 @@
 import type { MuseumId } from "@/schema/museum.js"
-import type { Fetch } from "@/index.js"
 import {
     EventListSchema,
     EventSchema,
@@ -14,13 +13,13 @@ export class EventRepository {
 
     readonly baseURL: string
 
-    constructor(baseURL: string, museumId: MuseumId, readonly fetch: Fetch = fetch) {
+    constructor(baseURL: string, museumId: MuseumId) {
         this.baseURL = `${baseURL}/museums/${museumId}/events`
     }
 
     async collect(): Promise<EventList> {
         const url = `${this.baseURL}`
-        const response = await this.fetch(url, {
+        const response = await fetch(url, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
@@ -30,7 +29,7 @@ export class EventRepository {
 
     async get(id: EventId) {
         const url = `${this.baseURL}/${id}`
-        const response = await this.fetch(url, {
+        const response = await fetch(url, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
@@ -41,7 +40,7 @@ export class EventRepository {
 
     async create(event: CreateEvent): Promise<Event> {
         const url = `${this.baseURL}`
-        const response = await this.fetch(url, {
+        const response = await fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
@@ -53,7 +52,7 @@ export class EventRepository {
 
     async update(id: EventId, event: UpdateEvent): Promise<Event> {
         const url = `${this.baseURL}/${id}`
-        const response = await this.fetch(url, {
+        const response = await fetch(url, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
@@ -65,7 +64,7 @@ export class EventRepository {
 
     async delete(id: EventId): Promise<void> {
         const url = `${this.baseURL}/${id}`
-        const response = await this.fetch(url, {
+        const response = await fetch(url, {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',

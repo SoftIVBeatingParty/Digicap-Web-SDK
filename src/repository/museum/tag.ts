@@ -1,4 +1,3 @@
-import type { Fetch } from "@/index.js"
 import type { MuseumId } from "@/schema/museum.js"
 import {
     TagListSchema,
@@ -14,13 +13,13 @@ export class TagRepository {
 
     readonly baseURL: string
 
-    constructor(baseURL: string, museumId: MuseumId, readonly fetch: Fetch = fetch) {
+    constructor(baseURL: string, museumId: MuseumId) {
         this.baseURL = `${baseURL}/museums/${museumId}/tags`
     }
 
     async collect(): Promise<TagList> {
         const url = `${this.baseURL}`
-        const response = await this.fetch(url, {
+        const response = await fetch(url, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
@@ -31,7 +30,7 @@ export class TagRepository {
 
     async get(id: TagId): Promise<Tag> {
         const url = `${this.baseURL}/${id}`
-        const response = await this.fetch(url, {
+        const response = await fetch(url, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
@@ -42,7 +41,7 @@ export class TagRepository {
 
     async create(tag: CreateTag): Promise<Tag> {
         const url = `${this.baseURL}`
-        const response = await this.fetch(url, {
+        const response = await fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
@@ -54,7 +53,7 @@ export class TagRepository {
 
     async update(id: TagId, tag: UpdateTag): Promise<Tag> {
         const url = `${this.baseURL}/${id}`
-        const response = await this.fetch(url, {
+        const response = await fetch(url, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
@@ -66,7 +65,7 @@ export class TagRepository {
 
     async delete(id: TagId): Promise<void> {
         const url = `${this.baseURL}/${id}`
-        const response = await this.fetch(url, {
+        const response = await fetch(url, {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',

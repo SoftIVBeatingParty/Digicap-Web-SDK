@@ -20,5 +20,3 @@ export * from '@/repository/museum/event.js'
 export * from '@/repository/museum.js'
 export * from '@/repository/user.js'
 export * from '@/repository/auth.js'
-
-export type Fetch = (typeof fetch)

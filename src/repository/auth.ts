@@ -1,5 +1,5 @@
 import type { Credentials } from "@/schema/auth.js"
-import type { Fetch } from "@/index.js"
+
 import {
     UserSchema,
     type User,
@@ -7,11 +7,11 @@ import {
 
 export class AuthRepository {
 
-    constructor(readonly baseURL: string, readonly fetch: Fetch = fetch) { }
+    constructor(readonly baseURL: string) { }
 
     async signup(creds: Credentials): Promise<User> {
         const url = `${this.baseURL}/auth/signup`
-        const response = await this.fetch(url, {
+        const response = await fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
@@ -23,7 +23,7 @@ export class AuthRepository {
 
     async signin(creds: Credentials): Promise<User> {
         const url = `${this.baseURL}/auth/signin`
-        const response = await this.fetch(url, {
+        const response = await fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
@@ -35,7 +35,7 @@ export class AuthRepository {
 
     async signout(): Promise<void> {
         const url = `${this.baseURL}/auth/signout`
-        const response = await this.fetch(url, {
+        const response = await fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',

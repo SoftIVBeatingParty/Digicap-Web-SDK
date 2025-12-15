@@ -1,5 +1,4 @@
 import type { MuseumId } from '@/schema/museum.js'
-import type { Fetch } from '@/index.js'
 import {
     AreaListSchema,
     AreaSchema,
@@ -14,13 +13,13 @@ export class AreaRepository {
 
     readonly baseURL: string
 
-    constructor(baseURL: string, museumId: MuseumId, readonly fetch: Fetch = fetch) {
+    constructor(baseURL: string, museumId: MuseumId) {
         this.baseURL = `${baseURL}/museums/${museumId}/areas`
     }
 
     async collect(): Promise<AreaList> {
         const url = `${this.baseURL}`
-        const response = await this.fetch(url, {
+        const response = await fetch(url, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
@@ -31,7 +30,7 @@ export class AreaRepository {
 
     async get(id: AreaId): Promise<Area> {
         const url = `${this.baseURL}/${id}`
-        const response = await this.fetch(url, {
+        const response = await fetch(url, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
@@ -42,7 +41,7 @@ export class AreaRepository {
 
     async create(area: CreateArea): Promise<Area> {
         const url = `${this.baseURL}`
-        const response = await this.fetch(url, {
+        const response = await fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
@@ -54,7 +53,7 @@ export class AreaRepository {
 
     async update(id: AreaId, area: UpdateArea): Promise<Area> {
         const url = `${this.baseURL}/${id}`
-        const response = await this.fetch(url, {
+        const response = await fetch(url, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
@@ -66,7 +65,7 @@ export class AreaRepository {
 
     async delete(museumId: MuseumId, id: AreaId): Promise<void> {
         const url = `${this.baseURL}/${id}`
-        const response = await this.fetch(url, {
+        const response = await fetch(url, {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
