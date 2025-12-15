@@ -1,4 +1,3 @@
-import type { FetchLike } from "@/index.js"
 import {
     UserSchema,
     type User,
@@ -11,11 +10,11 @@ import {
 
 export class UserRepository {
 
-    constructor(readonly baseURL: string, readonly fetch: FetchLike = fetch) { }
+    constructor(readonly baseURL: string) { }
 
     async get(userId: UserId): Promise<User> {
         const url = `${this.baseURL}/users/${userId}`
-        const response = await this.fetch(url, {
+        const response = await fetch(url, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
@@ -26,7 +25,7 @@ export class UserRepository {
 
     async getMe(): Promise<User> {
         const url = `${this.baseURL}/users/me`
-        const response = await this.fetch(url, {
+        const response = await fetch(url, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',

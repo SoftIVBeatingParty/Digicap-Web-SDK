@@ -2,8 +2,6 @@ import type { MuseumId } from "@/schema/museum.js"
 import {
     GuideListSchema,
     GuideSchema,
-    CreateGuideSchema,
-    UpdateGuideSchema,
     type Guide,
     type GuideId,
     type GuideList,
