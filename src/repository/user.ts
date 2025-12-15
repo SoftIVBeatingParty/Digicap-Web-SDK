@@ -35,7 +35,7 @@ export class UserRepository {
     }
 
         async getMuseums(): Promise<MuseumList> {
-            const url = `/users/me/museums`
+            const url = `${this.baseURL}/users/me/museums`
             const response = await fetch(url, {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
