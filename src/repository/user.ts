@@ -34,14 +34,14 @@ export class UserRepository {
         return UserSchema.parse(await response.json())
     }
 
-        async getMuseums(): Promise<MuseumList> {
-            const url = `${this.baseURL}/users/me/museums`
-            const response = await fetch(url, {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json' },
-                credentials: 'include',
-            })
-            if (!response.ok) { throw new Error(response.statusText) }
-            return MuseumListSchema.parse(await response.json())
-        }
+    async getMuseums(): Promise<MuseumList> {
+        const url = `${this.baseURL}/users/me/museums`
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+        })
+        if (!response.ok) { throw new Error(response.statusText) }
+        return MuseumListSchema.parse(await response.json())
+    }
 }
