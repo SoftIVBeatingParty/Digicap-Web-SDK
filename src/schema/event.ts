@@ -35,7 +35,6 @@ export const CreateEventSchema = EventSchema.pick({
     about: true,
     startTime: true,
     endTime: true,
-    pictureId: true,
 }).strip()
 
 /** Type for creating an event */
