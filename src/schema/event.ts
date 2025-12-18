@@ -1,4 +1,6 @@
 import { z } from "zod"
+import { PictureIdSchema } from "./picture.js"
+import { start } from "node:repl"
 
 /** Type for an event id (Nominal Type) */
 export type EventId = string & { readonly __brand: unique symbol }
@@ -18,6 +20,9 @@ export const EventSchema = z.object({
     name: z.string().min(1).max(255),
     createdAt: z.iso.datetime().transform(s => new Date(s)),
     updatedAt: z.iso.datetime().transform(s => new Date(s)),
+    startTime: z.iso.datetime().transform(s => new Date(s)),
+    endTime: z.iso.datetime().transform(s => new Date(s)),
+    pictureId: z.lazy(() => PictureIdSchema.nullable()),
 }).strip()
 
 /** Type for an event, as responded by the API */
@@ -25,7 +30,10 @@ export type Event = z.infer<typeof EventSchema>
 
 /** Zod Schema for creating an event, using the POST method */
 export const CreateEventSchema = EventSchema.pick({
-    name: true
+    name: true,
+    startTime: true,
+    endTime: true,
+    pictureId: true,
 }).strip()
 
 /** Type for creating an event */
