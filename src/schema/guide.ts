@@ -1,4 +1,5 @@
 import { z } from "zod"
+import { PictureIdSchema } from "./picture.js"
 
 /** Type for a guide id (Nominal Type) */
 export type GuideId = string & { readonly __brand: unique symbol }
@@ -18,6 +19,7 @@ export const GuideSchema = z.object({
     name: z.string().min(1).max(255),
     createdAt: z.iso.datetime().transform(s => new Date(s)),
     updatedAt: z.iso.datetime().transform(s => new Date(s)),
+    pictureId: z.lazy(() => PictureIdSchema).nullable(),
 }).strip()
 
 /** Type for a guide, as responded by the API */
