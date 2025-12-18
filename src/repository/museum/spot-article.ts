@@ -1,10 +1,10 @@
 import type { MuseumId } from '@/schema/museum.js'
+import type { SpotId } from '@/schema/spot.js'
 import {
     ArticleSchema,
     type Article,
     type ArticleId,
 } from '@/schema/article.js'
-import type { SpotId } from '@/schema/spot.js'
 
 export class SpotArticleRepository {
     readonly baseURL: string
@@ -15,13 +15,10 @@ export class SpotArticleRepository {
 
     async get(): Promise<Article> {
         const response = await fetch(this.baseURL, {
+            method: 'GET',
             credentials: 'include',
         })
-
-        if (!response.ok) {
-            throw new Error(response.statusText)
-        }
-
+        if (!response.ok) { throw new Error(response.statusText) }
         return ArticleSchema.parse(await response.json())
     }
 
@@ -32,10 +29,7 @@ export class SpotArticleRepository {
             credentials: 'include',
             body: JSON.stringify(articleId),
         })
-
-        if (!response.ok) {
-            throw new Error(response.statusText)
-        }
+        if (!response.ok) { throw new Error(response.statusText) }
     }
 
     async delete(): Promise<void> {
@@ -43,9 +37,6 @@ export class SpotArticleRepository {
             method: 'DELETE',
             credentials: 'include',
         })
-
-        if (!response.ok) {
-            throw new Error(response.statusText)
-        }
+        if (!response.ok) { throw new Error(response.statusText) }
     }
 }
