@@ -48,10 +48,6 @@ export class AudioRepository {
         return AudioSchema.parse(await response.json())
     }
 
-    async embed(id: AudioId): Promise<string> {
-        return `${this.baseURL}/${id}/embed`
-    }
-
     async delete(id: AudioId): Promise<void> {
         const url = `${this.baseURL}/${id}`
         const response = await fetch(url, {
@@ -59,5 +55,9 @@ export class AudioRepository {
             credentials: 'include',
         })
         if (!response.ok) { throw new Error(response.statusText) }
+    }
+
+    embed(id: AudioId): string {
+        return `${this.baseURL}/${id}/embed`
     }
 }
