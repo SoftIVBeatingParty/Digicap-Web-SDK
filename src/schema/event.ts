@@ -18,6 +18,7 @@ export type EventIdList = z.infer<typeof EventIdListSchema>
 export const EventSchema = z.object({
     id: EventIdSchema,
     name: z.string().min(1).max(255),
+    about: z.string().min(0).max(1024),
     createdAt: z.iso.datetime().transform(s => new Date(s)),
     updatedAt: z.iso.datetime().transform(s => new Date(s)),
     startTime: z.iso.datetime().transform(s => new Date(s)),
@@ -31,6 +32,7 @@ export type Event = z.infer<typeof EventSchema>
 /** Zod Schema for creating an event, using the POST method */
 export const CreateEventSchema = EventSchema.pick({
     name: true,
+    about: true,
     startTime: true,
     endTime: true,
     pictureId: true,
