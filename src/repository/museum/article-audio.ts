@@ -7,6 +7,7 @@ import {
 } from '@/schema/audio.js'
 
 export class ArticleAudioRepository {
+    
     readonly baseURL: string
 
     constructor(baseURL: string, museumId: MuseumId, articleId: ArticleId) {
