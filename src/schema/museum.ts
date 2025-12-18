@@ -1,3 +1,4 @@
+import { start } from "node:repl"
 import { z } from "zod"
 
 /** Type for a museum id (Nominal Type) */
@@ -18,6 +19,8 @@ export const MuseumSchema = z.object({
     name: z.string().min(1).max(255),
     createdAt: z.iso.datetime().transform(s => new Date(s)),
     updatedAt: z.iso.datetime().transform(s => new Date(s)),
+    startTime: z.iso.datetime().transform(s => new Date(s)),
+    endTime: z.iso.datetime().transform(s => new Date(s)),
 }).strip()
 
 /** Type for a museum, as responded by the API */
@@ -26,6 +29,8 @@ export type Museum = z.infer<typeof MuseumSchema>
 /** Zod Schema for creating a museum, using the POST method */
 export const CreateMuseumSchema = MuseumSchema.pick({
     name: true,
+    startTime: true,
+    endTime: true,
 }).strip()
 
 /** Type for creating a museum */
