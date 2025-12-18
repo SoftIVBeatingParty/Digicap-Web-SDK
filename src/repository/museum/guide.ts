@@ -21,7 +21,6 @@ export class GuideRepository {
         const url = `${this.baseURL}`
         const response = await fetch(url, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
         })
         if (!response.ok) { throw new Error(response.statusText) }
@@ -32,7 +31,6 @@ export class GuideRepository {
         const url = `${this.baseURL}/${id}`
         const response = await fetch(url, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
         })
         if (!response.ok) { throw new Error(response.statusText) }
@@ -67,8 +65,8 @@ export class GuideRepository {
         const url = `${this.baseURL}/${id}`
         const response = await fetch(url, {
             method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
         })
+        if (!response.ok) { throw new Error(response.statusText) }
     }
 }

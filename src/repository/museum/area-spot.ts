@@ -1,17 +1,9 @@
 import type { MuseumId } from '@/schema/museum.js'
-import {
-    SpotSchema,
-    SpotListSchema,
-    type Spot,
-} from '@/schema/spot.js'
-import {
-    AreaListSchema,
-    AreaSchema,
-    type Area,
-    type AreaId,
-    type AreaList,
-} from '@/schema/area.js'
+import type { AreaId } from '@/schema/area.js'
+import { SpotListSchema, type Spot } from '@/schema/spot.js'
+
 export class AreaSpotRepository {
+
     readonly baseURL: string
 
     constructor(baseURL: string, museumId: MuseumId, areaId: AreaId) {
@@ -22,7 +14,6 @@ export class AreaSpotRepository {
         const url = `${this.baseURL}`
         const response = await fetch(url, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
         })
         if (!response.ok) { throw new Error(response.statusText) }

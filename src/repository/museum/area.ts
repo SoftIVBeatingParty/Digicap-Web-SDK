@@ -21,7 +21,6 @@ export class AreaRepository {
         const url = `${this.baseURL}`
         const response = await fetch(url, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
         })
         if (!response.ok) { throw new Error(response.statusText) }
@@ -63,12 +62,12 @@ export class AreaRepository {
         return AreaSchema.parse(await response.json())
     }
 
-    async delete(museumId: MuseumId, id: AreaId): Promise<void> {
+    async delete(id: AreaId): Promise<void> {
         const url = `${this.baseURL}/${id}`
         const response = await fetch(url, {
             method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
         })
+        if (!response.ok) { throw new Error(response.statusText) }
     }
 }

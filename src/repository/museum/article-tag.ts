@@ -1,20 +1,15 @@
 import type { MuseumId } from '@/schema/museum.js'
-import {
-    ArticleSchema,
-    ArticleListSchema,
-    type Article,
-    type ArticleId,
-    type ArticleList,
-} from '@/schema/article.js'
+import type { ArticleId } from '@/schema/article.js'
 import {
     TagListSchema,
-    TagSchema,
-    type Tag,
-    type TagId,
+    type TagIdList,
     type TagList,
 } from '@/schema/tag.js'
+
 export class ArticleTagRepository {
+
     readonly baseURL: string
+
     constructor(baseURL: string, museumId: MuseumId, articleId: ArticleId) {
         this.baseURL = `${baseURL}/museums/${museumId}/articles/${articleId}/tags`
     }
@@ -23,14 +18,13 @@ export class ArticleTagRepository {
         const url = `${this.baseURL}`
         const response = await fetch(url, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
         })
         if (!response.ok) { throw new Error(response.statusText) }
         return TagListSchema.parse(await response.json())
     }
 
-    async put(tagIds: TagList): Promise<TagList> {
+    async put(tagIds: TagIdList): Promise<TagList> {
         const url = `${this.baseURL}`
         const response = await fetch(url, {
             method: 'PUT',

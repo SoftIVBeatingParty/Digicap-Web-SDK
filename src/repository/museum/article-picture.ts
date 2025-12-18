@@ -1,21 +1,13 @@
 import type { MuseumId } from '@/schema/museum.js'
-import {
-    ArticleSchema,
-    ArticleListSchema,
-    type Article,
-    type ArticleId,
-    type ArticleList,
-} from '@/schema/article.js'
+import type { ArticleId } from '@/schema/article.js'
 import {
     PictureListSchema,
-    PictureSchema,
-    type Picture,
-    type PictureId,
+    type PictureIdList,
     type PictureList,
 } from '@/schema/picture.js'
 
 export class ArticlePictureRepository {
-    
+
     readonly baseURL: string
 
     constructor(baseURL: string, museumId: MuseumId, articleId: ArticleId) {
@@ -26,14 +18,13 @@ export class ArticlePictureRepository {
         const url = `${this.baseURL}`
         const response = await fetch(url, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
         })
         if (!response.ok) { throw new Error(response.statusText) }
         return PictureListSchema.parse(await response.json())
     }
 
-    async put(pictureIds: PictureList): Promise<PictureList> {
+    async put(pictureIds: PictureIdList): Promise<PictureList> {
         const url = `${this.baseURL}`
         const response = await fetch(url, {
             method: 'PUT',
