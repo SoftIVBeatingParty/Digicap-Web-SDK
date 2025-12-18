@@ -52,7 +52,9 @@ export class AudioRepository {
         const url = `${this.baseURL}/${id}`
         const response = await fetch(url, {
             method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
+            body: JSON.stringify({})
         })
         if (!response.ok) { throw new Error(response.statusText) }
     }

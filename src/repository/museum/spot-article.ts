@@ -35,7 +35,9 @@ export class SpotArticleRepository {
     async delete(): Promise<void> {
         const response = await fetch(this.baseURL, {
             method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
+            body: JSON.stringify({}),
         })
         if (!response.ok) { throw new Error(response.statusText) }
     }

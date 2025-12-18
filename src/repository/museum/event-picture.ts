@@ -1,15 +1,15 @@
 import type { MuseumId } from '@/schema/museum.js'
 import type { EventId } from '@/schema/event.js'
 import {
-    PictureListSchema,
     PictureSchema,
     type Picture,
     type PictureId,
-    type PictureList,
 } from '@/schema/picture.js'
 
 export class EventPictureRepository {
+
     readonly baseURL: string
+    
     constructor(baseURL: string, museumId: MuseumId, eventId: EventId) {
         this.baseURL = `${baseURL}/museums/${museumId}/events/${eventId}/picture`
     }
