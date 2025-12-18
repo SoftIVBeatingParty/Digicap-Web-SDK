@@ -48,6 +48,10 @@ export class PictureRepository {
         return PictureSchema.parse(await response.json())
     }
 
+    async embed(id: PictureId): Promise<string> {
+        return `${this.baseURL}/${id}/embed`
+    }
+
     async delete(id: PictureId): Promise<void> {
         const url = `${this.baseURL}/${id}`
         const response = await fetch(url, {
