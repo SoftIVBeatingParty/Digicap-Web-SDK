@@ -1,6 +1,5 @@
 import { z } from "zod"
 import { PictureIdSchema } from "./picture.js"
-import { start } from "node:repl"
 
 /** Type for an event id (Nominal Type) */
 export type EventId = string & { readonly __brand: unique symbol }
