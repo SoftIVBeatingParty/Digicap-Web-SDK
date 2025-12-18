@@ -1,10 +1,10 @@
 import type { MuseumId } from '@/schema/museum.js'
+import type { ArticleId } from '@/schema/article.js'
 import {
     AudioSchema,
     type Audio,
     type AudioId,
 } from '@/schema/audio.js'
-import type { ArticleId } from '@/schema/article.js'
 
 export class ArticleAudioRepository {
     readonly baseURL: string
