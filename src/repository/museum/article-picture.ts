@@ -15,10 +15,13 @@ import {
 } from '@/schema/picture.js'
 
 export class ArticlePictureRepository {
+    
     readonly baseURL: string
+
     constructor(baseURL: string, museumId: MuseumId, articleId: ArticleId) {
         this.baseURL = `${baseURL}/museums/${museumId}/articles/${articleId}/pictures`
     }
+
     async get(): Promise<PictureList> {
         const url = `${this.baseURL}`
         const response = await fetch(url, {
