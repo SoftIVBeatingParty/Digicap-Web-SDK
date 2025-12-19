@@ -25,6 +25,7 @@ export const ArticleSchema = z.object({
     updatedAt: z.iso.datetime().transform(s => new Date(s)),
     pictureId: z.lazy(() => PictureIdSchema.nullable()),
     audioId: z.lazy(() => AudioIdSchema.nullable()),
+    spotId: z.lazy(() => SpotIdSchema.nullable()),
 }).strip()
 
 /** Type for an article, as responded by the API */
