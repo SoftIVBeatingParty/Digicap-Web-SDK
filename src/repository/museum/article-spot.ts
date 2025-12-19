@@ -10,7 +10,7 @@ export class ArticleSpotRepository {
     readonly baseURL: string
 
     constructor(baseURL: string, museumId: MuseumId, articleId: ArticleId) {
-        this.baseURL = `${baseURL}/museums/${museumId}/articles/${articleId}/spots`
+        this.baseURL = `${baseURL}/museums/${museumId}/articles/${articleId}/spot`
     }
 
     async get(): Promise<SpotList> {
