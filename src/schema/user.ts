@@ -22,3 +22,9 @@ export const UserSchema = z.object({
 
 /** Type for a user. */
 export type User = z.infer<typeof UserSchema>
+
+/** Zod Schema for a list of users. */
+export const UserListSchema = z.array(UserSchema)
+
+/** Type for a list of users. */
+export type UserList = z.infer<typeof UserListSchema>

@@ -1,4 +1,4 @@
-import type { UserId } from "@/schema/user.js"
+import { UserListSchema, type UserId, type UserList } from "@/schema/user.js"
 import {
     MuseumListSchema,
     MuseumSchema,
@@ -90,5 +90,16 @@ export class MuseumRepository {
             credentials: 'include',
         })
         if (!response.ok) { throw new Error(response.statusText) }
+    }
+
+    async everyone(): Promise<UserList> {
+        const url = `${this.baseURL}/users`
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+        })
+        if (!response.ok) { throw new Error(response.statusText) }
+        return UserListSchema.parse(await response.json())
     }
 }
