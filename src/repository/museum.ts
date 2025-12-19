@@ -19,7 +19,6 @@ export class MuseumRepository {
         const url = `${this.baseURL}`
         const response = await fetch(url, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
         })
         if (!response.ok) { throw new Error(response.statusText) }
@@ -71,8 +70,8 @@ export class MuseumRepository {
         if (!response.ok) { throw new Error(response.statusText) }
     }
 
-    async invite(userId: UserId): Promise<void> {
-        const url = `${this.baseURL}/users`
+    async invite(museumId: MuseumId, userId: UserId): Promise<void> {
+        const url = `${this.baseURL}/${museumId}/users`
         const response = await fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -82,8 +81,8 @@ export class MuseumRepository {
         if (!response.ok) { throw new Error(response.statusText) }
     }
 
-    async reject(userId: UserId): Promise<void> {
-        const url = `${this.baseURL}/users/${userId}`
+    async reject(museumId: MuseumId, userId: UserId): Promise<void> {
+        const url = `${this.baseURL}/${museumId}/users/${userId}`
         const response = await fetch(url, {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
@@ -92,11 +91,10 @@ export class MuseumRepository {
         if (!response.ok) { throw new Error(response.statusText) }
     }
 
-    async everyone(id: MuseumId): Promise<UserList> {
-        const url = `${this.baseURL}/${id}/users`
+    async everyone(museumId: MuseumId): Promise<UserList> {
+        const url = `${this.baseURL}/${museumId}/users`
         const response = await fetch(url, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
         })
         if (!response.ok) { throw new Error(response.statusText) }
