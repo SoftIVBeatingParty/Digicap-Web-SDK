@@ -79,7 +79,7 @@ export class MuseumRepository {
                 "Content-Type": "application/json",
             },
             credentials: "include",
-            body: JSON.stringify(email),
+            body: JSON.stringify({ email }),
         })
 
         if (!response.ok) {
