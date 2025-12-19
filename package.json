@@ -46,6 +46,7 @@
     "undici": "^7.16.0"
   },
   "dependencies": {
+    "@digicap/web-sdk": "github:SoftIVBeatingParty/Digicap-Web-SDK#dev",
     "@types/superagent": "^8.1.9",
     "superagent": "^10.2.3",
     "zod": "^4.1.13"

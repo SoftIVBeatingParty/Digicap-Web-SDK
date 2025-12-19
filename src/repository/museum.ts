@@ -72,22 +72,14 @@ export class MuseumRepository {
 
     async invite(museumId: MuseumId, email: string): Promise<void> {
         const url = `${this.baseURL}/${museumId}/users`
-
         const response = await fetch(url, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            credentials: "include",
-            body: JSON.stringify({ email }),
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify(email)
         })
-
-        if (!response.ok) {
-            const text = await response.text()
-            throw new Error(`Invite failed (${response.status}): ${text}`)
-        }
+        if (!response.ok) { throw new Error(response.statusText) }
     }
-
 
     async reject(museumId: MuseumId, userId: UserId): Promise<void> {
         const url = `${this.baseURL}/${museumId}/users/${userId}`
