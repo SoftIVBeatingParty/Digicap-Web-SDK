@@ -70,13 +70,13 @@ export class MuseumRepository {
         if (!response.ok) { throw new Error(response.statusText) }
     }
 
-    async invite(museumId: MuseumId, userId: UserId): Promise<void> {
+    async invite(museumId: MuseumId, email: string): Promise<void> {
         const url = `${this.baseURL}/${museumId}/users`
         const response = await fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
-            body: JSON.stringify(userId)
+            body: JSON.stringify(email)
         })
         if (!response.ok) { throw new Error(response.statusText) }
     }
