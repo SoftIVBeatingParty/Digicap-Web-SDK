@@ -92,8 +92,8 @@ export class MuseumRepository {
         if (!response.ok) { throw new Error(response.statusText) }
     }
 
-    async everyone(): Promise<UserList> {
-        const url = `${this.baseURL}/users`
+    async everyone(id: MuseumId): Promise<UserList> {
+        const url = `${this.baseURL}/${id}/users`
         const response = await fetch(url, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
