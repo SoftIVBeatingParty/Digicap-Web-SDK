@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { SpotIdListSchema } from "./spot.js";
 
 /** Type for an area id (Nominal Type) */
 export type AreaId = string & { readonly __brand: unique symbol }
@@ -19,7 +18,6 @@ export const AreaSchema = z.object({
     name: z.string().min(1).max(255),
     createdAt: z.iso.datetime().transform(s => new Date(s)),
     updatedAt: z.iso.datetime().transform(s => new Date(s)),
-    spotIdList: z.lazy(() => SpotIdListSchema)
 }).strip()
 
 /** Type for an area, as responded by the API */

@@ -8,6 +8,7 @@ import {
     type CreateMuseum,
     type UpdateMuseum,
 } from "@/schema/museum.js"
+import { PictureSchema, type Picture, type PictureId } from "@/schema/picture.js"
 
 export class MuseumRepository {
 
@@ -99,5 +100,25 @@ export class MuseumRepository {
         })
         if (!response.ok) { throw new Error(response.statusText) }
         return UserListSchema.parse(await response.json())
+    }
+
+    async getThumbnail(museumId: MuseumId): Promise<Picture> {
+        const url = `${this.baseURL}/${museumId}/thumbnail-picture`
+        const response = await fetch(url, {
+            method: 'GET',
+            credentials: 'include',
+        })
+        if (!response.ok) { throw new Error(response.statusText) }
+        return PictureSchema.parse(await response.json())
+    }
+
+    async setThumbnail(museumId: MuseumId, pictureId: PictureId): Promise<void> {
+        const url = `${this.baseURL}/${museumId}/thumbnail-picture`
+        const response = await fetch(url, {
+            method: 'PUT',
+            credentials: 'include',
+            body: JSON.stringify(pictureId)
+        })
+        if (!response.ok) { throw new Error(response.statusText) }
     }
 }
