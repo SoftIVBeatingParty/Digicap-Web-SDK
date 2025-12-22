@@ -116,12 +116,14 @@ export class MuseumRepository {
         const url = `${this.baseURL}/${museumId}/thumbnail-picture`
         const response = await fetch(url, {
             method: 'PUT',
-            credentials: 'include',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json',   // ⚠ ここを必ず指定
             },
-            body: JSON.stringify(pictureId)
+            credentials: 'include',
+            body: JSON.stringify(pictureId)           // "uuid-string" を送る
         })
-        if (!response.ok) { throw new Error(response.statusText) }
+        if (!response.ok) {
+            throw new Error(response.statusText)
+        }
     }
 }
