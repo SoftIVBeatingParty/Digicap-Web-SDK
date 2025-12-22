@@ -14,7 +14,7 @@ export class ArticleSpotRepository {
         this.baseURL = `${baseURL}/museums/${museumId}/articles/${articleId}/spot`
     }
 
-    async get(): Promise<Spot> {
+    async get(): Promise<SpotList> {
         const url = `${this.baseURL}`
         const response = await fetch(url, {
             method: 'GET',
