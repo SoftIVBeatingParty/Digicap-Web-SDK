@@ -117,10 +117,10 @@ export class MuseumRepository {
         const response = await fetch(url, {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json',   // ⚠ ここを必ず指定
+                'Content-Type': 'application/json',
             },
             credentials: 'include',
-            body: JSON.stringify({ pictureId })           // "uuid-string" を送る
+            body: JSON.stringify( pictureId )
         })
         if (!response.ok) {
             throw new Error(response.statusText)
