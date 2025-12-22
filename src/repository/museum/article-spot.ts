@@ -2,6 +2,7 @@ import type { MuseumId } from '@/schema/museum.js'
 import type { ArticleId } from '@/schema/article.js'
 import {
     SpotListSchema,
+    type Spot,
     type SpotList,
 } from '@/schema/spot.js'
 
@@ -13,7 +14,7 @@ export class ArticleSpotRepository {
         this.baseURL = `${baseURL}/museums/${museumId}/articles/${articleId}/spot`
     }
 
-    async get(): Promise<SpotList> {
+    async get(): Promise<Spot> {
         const url = `${this.baseURL}`
         const response = await fetch(url, {
             method: 'GET',
