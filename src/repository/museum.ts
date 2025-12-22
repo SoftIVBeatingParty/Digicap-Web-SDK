@@ -8,7 +8,7 @@ import {
     type CreateMuseum,
     type UpdateMuseum,
 } from "@/schema/museum.js"
-import { PictureSchema, type Picture } from "@/schema/picture.js"
+import { PictureSchema, type Picture, type PictureId } from "@/schema/picture.js"
 
 export class MuseumRepository {
 
@@ -112,7 +112,7 @@ export class MuseumRepository {
         return PictureSchema.parse(await response.json())
     }
 
-    async setThumbnail(museumId: MuseumId, pictureId: string): Promise<void> {
+    async setThumbnail(museumId: MuseumId, pictureId: PictureId): Promise<void> {
         const url = `${this.baseURL}/${museumId}/thumbnail-picture`
         const response = await fetch(url, {
             method: 'PUT',
