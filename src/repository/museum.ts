@@ -120,7 +120,7 @@ export class MuseumRepository {
                 'Content-Type': 'application/json',   // ⚠ ここを必ず指定
             },
             credentials: 'include',
-            body: JSON.stringify(pictureId)           // "uuid-string" を送る
+            body: JSON.stringify({ pictureId })           // "uuid-string" を送る
         })
         if (!response.ok) {
             throw new Error(response.statusText)
