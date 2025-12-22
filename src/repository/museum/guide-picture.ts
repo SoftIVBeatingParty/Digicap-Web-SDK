@@ -1,5 +1,5 @@
-import { MuseumId } from '@/schema/museum.js'
-import { GuideId } from '@digicap/web-sdk'
+import type { MuseumId } from '@/schema/museum.js'
+import type { GuideId } from '@digicap/web-sdk'
 import {
     PictureSchema,
     type Picture,
