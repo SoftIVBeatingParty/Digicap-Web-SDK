@@ -117,6 +117,9 @@ export class MuseumRepository {
         const response = await fetch(url, {
             method: 'PUT',
             credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+            },
             body: JSON.stringify(pictureId)
         })
         if (!response.ok) { throw new Error(response.statusText) }
