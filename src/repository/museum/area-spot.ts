@@ -14,9 +14,7 @@ export class AreaSpotRepository {
         const url = `${this.baseURL}`
         const response = await fetch(url, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
-            body: JSON.stringify({}),
         })
         if (!response.ok) { throw new Error(response.statusText) }
         return SpotListSchema.parse(await response.json())
