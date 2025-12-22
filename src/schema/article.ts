@@ -1,7 +1,4 @@
 import { z } from "zod";
-import { PictureIdSchema } from "@/schema/picture.js";
-import { SpotIdSchema } from "./spot.js";
-import { AudioIdSchema } from "./audio.js";
 
 /** Zod Schema for an area id (Branded UUID) */
 export type ArticleId = string & { readonly __brand: unique symbol }
