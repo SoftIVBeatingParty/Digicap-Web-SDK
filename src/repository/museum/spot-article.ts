@@ -27,7 +27,7 @@ export class SpotArticleRepository {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
-            body: JSON.stringify(articleId),
+            body: JSON.stringify({articleId}),
         })
         if (!response.ok) { throw new Error(response.statusText) }
     }
