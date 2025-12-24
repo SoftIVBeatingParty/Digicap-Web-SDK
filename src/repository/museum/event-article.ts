@@ -8,9 +8,11 @@ import {
 } from '@/schema/event.js'
 import {
     ArticleListSchema,
+    ArticleIdListSchema,
     type Article,
     type ArticleId,
     type ArticleList,
+    type ArticleIdList,
 } from '@/schema/article.js'
 
 export class EventArticleRepository {
@@ -32,7 +34,7 @@ export class EventArticleRepository {
         return ArticleListSchema.parse(await response.json())
     }
 
-    async put(articleIds: ArticleList): Promise<ArticleList> {
+    async put(articleIds: ArticleIdList): Promise<ArticleIdList> {
         const url = `${this.baseURL}`
         const response = await fetch(url, {
             method: 'PUT',
@@ -41,6 +43,6 @@ export class EventArticleRepository {
             body: JSON.stringify(articleIds),
         })
         if (!response.ok) { throw new Error(response.statusText) }
-        return ArticleListSchema.parse(await response.json())
+        return ArticleIdListSchema.parse(await response.json())
     }
 }
