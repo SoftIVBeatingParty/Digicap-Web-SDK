@@ -13,14 +13,14 @@ export class ArticleSpotRepository {
         this.baseURL = `${baseURL}/museums/${museumId}/articles/${articleId}/spot`
     }
 
-    async find(): Promise<Spot | undefined> {
+    async get(): Promise<Spot> {
         const url = `${this.baseURL}`
         const response = await fetch(url, {
             method: 'GET',
             credentials: 'include',
         })
         if (response.status === 404) {
-            return undefined
+            throw new Error('Spot_not_related')
         }
         if (!response.ok) { throw new Error(response.statusText) }
         return SpotSchema.parse(await response.json())
