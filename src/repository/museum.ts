@@ -131,7 +131,6 @@ export class MuseumRepository {
         const url = `${this.baseURL}/${museumId}/users/${userId}/ownership`
         const response = await fetch(url, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
         })
         if (!response.ok) { throw new Error(response.statusText) }
@@ -141,7 +140,6 @@ export class MuseumRepository {
         const url = `${this.baseURL}/${museumId}/users/${userId}/ownership`
         const response = await fetch(url, {
             method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
         })
         if (!response.ok) { throw new Error(response.statusText) }
