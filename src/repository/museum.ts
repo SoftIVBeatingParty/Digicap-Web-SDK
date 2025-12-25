@@ -126,7 +126,7 @@ export class MuseumRepository {
             throw new Error(response.statusText)
         }
     }
-    
+
     async getOwnerships(museumId: MuseumId): Promise<UserList> {
         const url = `${this.baseURL}/${museumId}/users/ownership`
         const response = await fetch(url, {
@@ -137,8 +137,8 @@ export class MuseumRepository {
         return UserListSchema.parse(await response.json())
     }
 
-    async grant(museumId: MuseumId, userId: UserId): Promise<void> {
-        const url = `${this.baseURL}/${museumId}/users/${userId}/ownership`
+    async grant(museumId: MuseumId): Promise<void> {
+        const url = `${this.baseURL}/${museumId}/users/ownership`
         const response = await fetch(url, {
             method: 'POST',
             credentials: 'include',
