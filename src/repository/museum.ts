@@ -126,4 +126,24 @@ export class MuseumRepository {
             throw new Error(response.statusText)
         }
     }
+
+    async grant(museumId: MuseumId, userId: UserId): Promise<void> {
+        const url = `${this.baseURL}/${museumId}/users/${userId}/ownership`
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+        })
+        if (!response.ok) { throw new Error(response.statusText) }
+    }
+
+    async revoke(museumId: MuseumId, userId: UserId): Promise<void> {
+        const url = `${this.baseURL}/${museumId}/users/${userId}/ownership`
+        const response = await fetch(url, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+        })
+        if (!response.ok) { throw new Error(response.statusText) }
+    }
 }
