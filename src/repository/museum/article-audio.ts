@@ -18,7 +18,9 @@ export class ArticleAudioRepository {
         const response = await fetch(this.baseURL, {
             credentials: 'include',
         })
-
+        if (response.status === 404) {
+            throw new Error('Audio_not_related')
+        }
         if (!response.ok) {
             throw new Error(response.statusText)
         }

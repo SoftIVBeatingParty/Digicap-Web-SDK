@@ -71,4 +71,17 @@ export class ArticleRepository {
         })
         if (!response.ok) { throw new Error(response.statusText) }
     }
+
+    async setPublished(id: ArticleId, published: boolean): Promise<Article> {
+        const url = `${this.baseURL}/${id}/published`
+        const response = await fetch(url, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({ published }),
+        })
+        if (!response.ok) { throw new Error(response.statusText) }
+        return ArticleSchema.parse(await response.json())
+    }
+
 }
