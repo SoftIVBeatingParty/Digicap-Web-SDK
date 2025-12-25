@@ -137,8 +137,8 @@ export class MuseumRepository {
         return UserListSchema.parse(await response.json())
     }
 
-    async grant(museumId: MuseumId): Promise<void> {
-        const url = `${this.baseURL}/${museumId}/users/ownership`
+    async grant(museumId: MuseumId, userId: UserId): Promise<void> {
+        const url = `${this.baseURL}/${museumId}/users/${userId}/ownership`
         const response = await fetch(url, {
             method: 'POST',
             credentials: 'include',
