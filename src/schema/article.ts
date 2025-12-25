@@ -46,3 +46,12 @@ export const ArticleListSchema = z.array(ArticleSchema)
 
 /** Type for an article, as responded by the API */
 export type ArticleList = z.infer<typeof ArticleListSchema>
+
+/** Type for permissions related to article operations */
+export type ArticlePermission = {
+    canGet: boolean
+    canGetList: boolean
+    canCreate: boolean
+    canUpdate: boolean
+    canDelete: boolean
+}
