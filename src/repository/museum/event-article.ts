@@ -34,7 +34,7 @@ export class EventArticleRepository {
         return ArticleListSchema.parse(await response.json())
     }
 
-    async put(articleIds: ArticleIdList): Promise<ArticleIdList> {
+    async put(articleIds: ArticleIdList): Promise<ArticleList> {
         const url = `${this.baseURL}`
         const response = await fetch(url, {
             method: 'PUT',
@@ -43,6 +43,6 @@ export class EventArticleRepository {
             body: JSON.stringify(articleIds),
         })
         if (!response.ok) { throw new Error(response.statusText) }
-        return ArticleIdListSchema.parse(await response.json())
+        return ArticleListSchema.parse(await response.json())
     }
 }
