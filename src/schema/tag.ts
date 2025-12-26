@@ -16,6 +16,7 @@ export type TagIdList = z.infer<typeof TagIdListSchema>
 export const TagSchema = z.object({
     id: TagIdSchema,
     name: z.string().min(1).max(255),
+    color: z.string().min(1).max(255),
     createdAt: z.iso.datetime().transform(s => new Date(s)),
     updatedAt: z.iso.datetime().transform(s => new Date(s)),
 }).strip()
@@ -26,6 +27,7 @@ export type Tag = z.infer<typeof TagSchema>
 /** Zod Schema for creating a tag, using the POST method */
 export const CreateTagSchema = TagSchema.pick({
     name: true,
+    color: true,
 }).strip()
 
 /** Type for creating a tag (Request body for POST /tags) */
