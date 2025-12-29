@@ -51,7 +51,7 @@ export class AudioRepository {
     async delete(id: AudioId): Promise<void> {
         const url = `${this.baseURL}/${id}`
         const response = await fetch(url, {
-            method: 'GET',
+            method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
             body: JSON.stringify({})
