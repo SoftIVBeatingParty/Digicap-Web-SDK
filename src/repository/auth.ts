@@ -35,7 +35,7 @@ export class AuthRepository {
     async signout(): Promise<void> {
         const url = `${this.baseURL}/auth/signout`
         const response = await fetch(url, {
-            method: 'POST',
+            method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
         })
