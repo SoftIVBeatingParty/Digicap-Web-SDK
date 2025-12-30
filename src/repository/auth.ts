@@ -36,7 +36,6 @@ export class AuthRepository {
         const url = `${this.baseURL}/auth/signout`
         const response = await fetch(url, {
             method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
         })
         if (!response.ok) { throw new Error(response.statusText) }
