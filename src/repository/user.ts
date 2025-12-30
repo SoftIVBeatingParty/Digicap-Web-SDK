@@ -44,4 +44,13 @@ export class UserRepository {
         if (!response.ok) { throw new Error(response.statusText) }
         return MuseumListSchema.parse(await response.json())
     }
+
+    async delete(userId: UserId): Promise<void> {
+        const url = `${this.baseURL}/users/${userId}`
+        const response = await fetch(url, {
+            method: 'DELETE',
+            credentials: 'include',
+        })
+        if (!response.ok) { throw new Error(response.statusText) }
+    }
 }
