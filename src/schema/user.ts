@@ -3,8 +3,11 @@ import { z } from "zod"
 /** Type for a user id (Nominal Type) */
 export type UserId = string & { readonly __brand: unique symbol }
 
-/** Zod Schema for a user id (Branded UUID) */
-export const UserIdSchema = z.uuid().transform(id => id as UserId)
+/** Zod Schema for a user id (Cognito Sub format) */
+export const UserIdSchema = z
+  .string()
+  .regex(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i, "Invalid Cognito Sub format")
+  .transform(id => id as UserId)
 
 /** Zod Schema for an array of user ids */
 export const UserIdListSchema = z.array(UserIdSchema)
