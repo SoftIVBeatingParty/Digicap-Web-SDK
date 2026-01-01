@@ -6,7 +6,7 @@ export type UserId = string & { readonly __brand: unique symbol }
 /** Zod Schema for a user id (Cognito Sub format - UUID v7) */
 export const UserIdSchema = z
   .string()
-  .regex(/^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i, "Invalid Cognito Sub format (UUID v7)")
+  .regex(/^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[0-9a-f]{4}-[0-9a-f]{12}$/i, "Invalid Cognito Sub format (UUID v7)")
   .transform(id => id as UserId)
 
 /** Zod Schema for an array of user ids */
@@ -17,10 +17,10 @@ export type UserIdList = z.infer<typeof UserIdListSchema>
 
 /** Zod Schema for a list of users. */
 export const UserSchema = z.object({
-    id: UserIdSchema,
-    email: z.email(),
-    createdAt: z.iso.datetime().transform(s => new Date(s)),
-    updatedAt: z.iso.datetime().transform(s => new Date(s)),
+  id: UserIdSchema,
+  email: z.email(),
+  createdAt: z.iso.datetime().transform(s => new Date(s)),
+  updatedAt: z.iso.datetime().transform(s => new Date(s)),
 }).strip()
 
 /** Type for a user. */
