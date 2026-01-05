@@ -7,6 +7,11 @@ import {
     MuseumListSchema,
     type MuseumList,
 } from "@/schema/museum.js"
+import z from "zod"
+
+const RoleEnum = z.enum(['admin', 'other'])
+
+export type Role = z.infer<typeof RoleEnum>
 
 export class UserRepository {
 
@@ -52,5 +57,15 @@ export class UserRepository {
             credentials: 'include',
         })
         if (!response.ok) { throw new Error(response.statusText) }
+    }
+
+    async getRole(userId: UserId): Promise<Role> {
+        const url = `${this.baseURL}/users/${userId}/role`
+        const response = await fetch(url, {
+            method: 'GET',
+            credentials: 'include',
+        })
+        if (!response.ok) { throw new Error(response.statusText) }
+        return RoleEnum.parse(await response.json())
     }
 }
