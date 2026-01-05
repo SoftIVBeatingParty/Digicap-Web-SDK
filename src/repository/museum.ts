@@ -9,6 +9,11 @@ import {
     type UpdateMuseum,
 } from "@/schema/museum.js"
 import { PictureSchema, type Picture, type PictureId } from "@/schema/picture.js"
+import z from "zod"
+
+const RoleEnum = z.enum(['admin', 'owner', 'staff', 'guest'])
+
+export type Role = z.infer<typeof RoleEnum>
 
 export class MuseumRepository {
 
@@ -151,5 +156,15 @@ export class MuseumRepository {
             credentials: 'include',
         })
         if (!response.ok) { throw new Error(response.statusText) }
+    }
+
+    async getRole(museumId: MuseumId, userId: UserId): Promise<Role> {
+        const url = `${this.baseURL}/${museumId}/users/${userId}/role`
+        const response = await fetch(url, {
+            method: 'GET',
+            credentials: 'include',
+        })
+        if (!response.ok) { throw new Error(response.statusText) }
+        return RoleEnum.parse(await response.json())
     }
 }
