@@ -7,12 +7,6 @@ import {
     MuseumListSchema,
     type MuseumList,
 } from "@/schema/museum.js"
-import z from "zod"
-
-const RoleEnum = z.enum(['admin', 'other'])
-
-export type Role = z.infer<typeof RoleEnum>
-
 export class UserRepository {
 
     constructor(readonly baseURL: string) { }
@@ -59,13 +53,16 @@ export class UserRepository {
         if (!response.ok) { throw new Error(response.statusText) }
     }
 
-    async getRole(userId: UserId): Promise<Role> {
+    //　isAdminの変更が必要なら変更
+    async getRole(userId: UserId): Promise<{ isAdmin: boolean }> {
         const url = `${this.baseURL}/users/${userId}/role`
         const response = await fetch(url, {
             method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
         })
         if (!response.ok) { throw new Error(response.statusText) }
-        return RoleEnum.parse(await response.json())
+        const data = await response.json()
+        return { isAdmin: data.isAdmin === true }
     }
 }
