@@ -44,8 +44,8 @@ export class UserRepository {
         return MuseumListSchema.parse(await response.json())
     }
 
-    async delete(userId: UserId): Promise<void> {
-        const url = `${this.baseURL}/users/${userId}`
+    async delete(): Promise<void> {
+        const url = `${this.baseURL}/users/me`
         const response = await fetch(url, {
             method: 'DELETE',
             credentials: 'include',
