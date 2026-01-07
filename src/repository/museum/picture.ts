@@ -11,9 +11,10 @@ export class PictureRepository {
 
     readonly baseURL: string
 
-    constructor(baseURL: string, museumId: MuseumId) {
-        this.baseURL = `${baseURL}/museums/${museumId}/pictures`
+    constructor(museumId: MuseumId) {
+    this.baseURL = `resource.digicap.jp/museums/${museumId}/pictures`
     }
+
 
     async collect(): Promise<PictureList> {
         const url = `${this.baseURL}`
