@@ -16,6 +16,7 @@ export class ArticleAudioRepository {
 
     async get(): Promise<Audio> {
         const response = await fetch(this.baseURL, {
+            method: 'GET',
             credentials: 'include',
         })
         if (response.status === 404) {
