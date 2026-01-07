@@ -10,9 +10,13 @@ import {
 export class PictureRepository {
 
     readonly baseURL: string
+    readonly museumId: MuseumId 
 
-    constructor(museumId: MuseumId) {
-    this.baseURL = `resource.digicap.jp/museums/${museumId}/pictures`
+
+    constructor(baseURL: string, museumId: MuseumId) {
+        this.baseURL = `${baseURL}/museums/${museumId}/pictures`
+        this.museumId = museumId
+
     }
 
 
@@ -61,6 +65,6 @@ export class PictureRepository {
     }
     
     embed(id: PictureId): string {
-        return `${this.baseURL}/${id}/embed`
+        return `https://resource.digicap.jp/museums/${this.museumId}/pictures/${id}/embed`
     }
 }
