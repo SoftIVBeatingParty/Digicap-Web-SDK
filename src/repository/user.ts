@@ -63,6 +63,6 @@ export class UserRepository {
         })
         if (!response.ok) { throw new Error(response.statusText) }
         const data = await response.json()
-        return { isAdmin: data.isAdmin === true }
+        return { isAdmin: data === "admin" }
     }
 }
