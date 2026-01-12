@@ -1,29 +1,37 @@
 import { z } from "zod";
 
 /** Type for an picture id (Nominal Type) */
-export type PictureId = string & { readonly __brand: unique symbol }
+export type PictureId = string & { readonly __brand: unique symbol };
 
 /** Zod Schema for an picture id (Branded UUID) */
-export const PictureIdSchema = z.uuid().transform(id => id as PictureId)
+export const PictureIdSchema = z.uuid().transform((id) => id as PictureId);
 
 /** Zod Schema for an array of picture ids */
-export const PictureIdListSchema = z.array(PictureIdSchema)
+export const PictureIdListSchema = z.array(PictureIdSchema);
 
 /** Type for an array of picture ids */
-export type PictureIdList = z.infer<typeof PictureIdListSchema>
+export type PictureIdList = z.infer<typeof PictureIdListSchema>;
 
 /** Zod Schema for an picture */
-export const PictureSchema = z.object({
+export const PictureSchema = z
+  .object({
     id: PictureIdSchema,
-    createdAt: z.iso.datetime().transform(s => new Date(s)),
-    updatedAt: z.iso.datetime().transform(s => new Date(s)),
-}).strip()
+    createdAt: z.union([
+      z.date(),
+      z.iso.datetime().transform((s) => new Date(s)),
+    ]),
+    updatedAt: z.union([
+      z.date(),
+      z.iso.datetime().transform((s) => new Date(s)),
+    ]),
+  })
+  .strip();
 
 /** Type for an picture, as responded by the API */
-export type Picture = z.infer<typeof PictureSchema>
+export type Picture = z.infer<typeof PictureSchema>;
 
 /** Zod Schema for creating an picture, using the POST method */
-export const PictureListSchema = z.array(PictureSchema)
+export const PictureListSchema = z.array(PictureSchema);
 
 /** Type for an picture, as responded by the API */
-export type PictureList = z.infer<typeof PictureListSchema>
+export type PictureList = z.infer<typeof PictureListSchema>;
