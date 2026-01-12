@@ -4,9 +4,7 @@ import { z } from "zod";
 export type UserId = string & { readonly __brand: unique symbol };
 
 /** Zod Schema for a user id (Cognito Sub format - UUID v7) */
-export const UserIdSchema = z
-  .union([z.uuidv4(), z.uuidv7()])
-  .transform(id => id as UserId)
+export const UserIdSchema = z.uuid().transform((id) => id as UserId);
 
 /** Zod Schema for an array of user ids */
 export const UserIdListSchema = z.array(UserIdSchema);

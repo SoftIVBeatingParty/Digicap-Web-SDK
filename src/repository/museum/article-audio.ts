@@ -1,57 +1,52 @@
-import type { MuseumId } from '@/schema/museum.js'
-import type { ArticleId } from '@/schema/article.js'
-import {
-    AudioSchema,
-    type Audio,
-    type AudioId,
-} from '@/schema/audio.js'
+import type { MuseumId } from "@/schema/museum.js";
+import type { ArticleId } from "@/schema/article.js";
+import { AudioSchema, type Audio, type AudioId } from "@/schema/audio.js";
 
 export class ArticleAudioRepository {
-    
-    readonly baseURL: string
+  readonly baseURL: string;
 
-    constructor(baseURL: string, museumId: MuseumId, articleId: ArticleId) {
-        this.baseURL = `${baseURL}/museums/${museumId}/articles/${articleId}/audio`
+  constructor(baseURL: string, museumId: MuseumId, articleId: ArticleId) {
+    this.baseURL = `${baseURL}/museums/${museumId}/articles/${articleId}/audio`;
+  }
+
+  async get(): Promise<Audio> {
+    const response = await fetch(this.baseURL, {
+      method: "GET",
+      credentials: "include",
+    });
+    if (response.status === 404) {
+      throw new Error("Audio_not_related");
+    }
+    if (!response.ok) {
+      throw new Error(response.statusText);
     }
 
-    async get(): Promise<Audio> {
-        const response = await fetch(this.baseURL, {
-            method: 'GET',
-            credentials: 'include',
-        })
-        if (response.status === 404) {
-            throw new Error('Audio_not_related')
-        }
-        if (!response.ok) {
-            throw new Error(response.statusText)
-        }
+    return AudioSchema.parse(await response.json());
+  }
 
-        return AudioSchema.parse(await response.json())
+  async put(audioId: AudioId): Promise<void> {
+    const response = await fetch(this.baseURL, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify(audioId),
+    });
+
+    if (!response.ok) {
+      throw new Error(response.statusText);
     }
+  }
 
-    async put(audioId: AudioId): Promise<void> {
-        const response = await fetch(this.baseURL, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            credentials: 'include',
-            body: JSON.stringify(audioId),
-        })
+  async delete(): Promise<void> {
+    const response = await fetch(this.baseURL, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({}),
+    });
 
-        if (!response.ok) {
-            throw new Error(response.statusText)
-        }
+    if (!response.ok) {
+      throw new Error(response.statusText);
     }
-
-    async delete(): Promise<void> {
-        const response = await fetch(this.baseURL, {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
-            credentials: 'include',
-            body: JSON.stringify({}),
-        })
-
-        if (!response.ok) {
-            throw new Error(response.statusText)
-        }
-    }
+  }
 }

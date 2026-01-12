@@ -1,38 +1,41 @@
-import type { MuseumId } from '@/schema/museum.js'
-import type { GuideId } from '@/schema/guide.js'
+import type { MuseumId } from "@/schema/museum.js";
+import type { GuideId } from "@/schema/guide.js";
 import {
-    PictureSchema,
-    type Picture,
-    type PictureId,
-} from '@/schema/picture.js'
+  PictureSchema,
+  type Picture,
+  type PictureId,
+} from "@/schema/picture.js";
 
 export class GuidePictureRepository {
+  readonly baseURL: string;
 
-    readonly baseURL: string
+  constructor(baseURL: string, museumId: MuseumId, guideId: GuideId) {
+    this.baseURL = `${baseURL}/museums/${museumId}/guides/${guideId}/picture`;
+  }
 
-    constructor(baseURL: string, museumId: MuseumId, guideId: GuideId) {
-        this.baseURL = `${baseURL}/museums/${museumId}/guides/${guideId}/picture`
+  async get(): Promise<Picture> {
+    const url = `${this.baseURL}`;
+    const response = await fetch(url, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+    });
+    if (!response.ok) {
+      throw new Error(response.statusText);
     }
-
-    async get(): Promise<Picture> {
-        const url = `${this.baseURL}`
-        const response = await fetch(url, {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
-            credentials: 'include',
-        })
-        if (!response.ok) { throw new Error(response.statusText) }
-        return PictureSchema.parse(await response.json())
+    return PictureSchema.parse(await response.json());
+  }
+  async put(pictureId: PictureId): Promise<Picture> {
+    const url = `${this.baseURL}`;
+    const response = await fetch(url, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify(pictureId),
+    });
+    if (!response.ok) {
+      throw new Error(response.statusText);
     }
-    async put(pictureId: PictureId): Promise<Picture> {
-        const url = `${this.baseURL}`
-        const response = await fetch(url, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            credentials: 'include',
-            body: JSON.stringify(pictureId),
-        })
-        if (!response.ok) { throw new Error(response.statusText) }
-        return PictureSchema.parse(await response.json())
-    }
+    return PictureSchema.parse(await response.json());
+  }
 }
