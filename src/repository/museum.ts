@@ -150,6 +150,19 @@ export class MuseumRepository {
     }
   }
 
+  async deleteThumbnail(museumId: MuseumId): Promise<void> {
+    const url = `${this.baseURL}/${museumId}/thumbnail-picture`;
+    const response = await fetch(url, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({}),
+    });
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+  }
+
   async getOwnerships(museumId: MuseumId): Promise<UserList> {
     const url = `${this.baseURL}/${museumId}/users/ownership`;
     const response = await fetch(url, {
