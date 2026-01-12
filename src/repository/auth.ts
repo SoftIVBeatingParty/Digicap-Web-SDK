@@ -36,7 +36,7 @@ export class AuthRepository {
   async signout(): Promise<void> {
     const url = `${this.baseURL}/auth/signout`;
     const response = await fetch(url, {
-      method: "DELETE",
+      method: "POST",
       credentials: "include",
     });
     if (!response.ok) {
@@ -44,23 +44,25 @@ export class AuthRepository {
     }
   }
 
-  async confirmSignup(email: string, code: string): Promise<void> {
-    const res = await fetch(`${this.baseURL}/auth/confirm-signup`, {
+  async refresh(): Promise<void> {
+    const url = `${this.baseURL}/auth/refresh`;
+    const response = await fetch(url, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
       credentials: "include",
-      body: JSON.stringify({ email, code }),
     });
-    if (!res.ok) throw new Error(res.statusText);
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
   }
 
-  async resendConfirmation(email: string): Promise<void> {
-    const res = await fetch(`${this.baseURL}/auth/resend-confirmation`, {
+  async erasure(): Promise<void> {
+    const url = `${this.baseURL}/auth/erasure`;
+    const response = await fetch(url, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
       credentials: "include",
-      body: JSON.stringify({ email }),
     });
-    if (!res.ok) throw new Error(res.statusText);
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
   }
 }
