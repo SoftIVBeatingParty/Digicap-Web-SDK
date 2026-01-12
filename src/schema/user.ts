@@ -5,8 +5,7 @@ export type UserId = string & { readonly __brand: unique symbol }
 
 /** Zod Schema for a user id (Cognito Sub format - UUID v7) */
 export const UserIdSchema = z
-  .string()
-  .regex(/^[0-9a-f]{8}-[0-9a-f]{4}-[47][0-9a-f]{3}-[0-9a-f]{4}-[0-9a-f]{12}$/i, "Invalid Cognito Sub format (UUID v4 or v7)")
+  .union([z.uuidv4(), z.uuidv7()])
   .transform(id => id as UserId)
 
 /** Zod Schema for an array of user ids */
