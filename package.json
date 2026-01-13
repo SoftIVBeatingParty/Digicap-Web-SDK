@@ -26,9 +26,6 @@
     "build": "tsup src/index.ts src/api/index.ts src/schema/index.ts --format esm,cjs --dts --clean",
     "prepack": "npm run build"
   },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SoftIVBeatingParty/Digicap-Web-SDK.git"
