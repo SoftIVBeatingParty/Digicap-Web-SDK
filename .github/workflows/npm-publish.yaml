@@ -1,0 +1,43 @@
+name: publish-dev
+
+on:
+  push:
+    branches: [dev]
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: publish-dev
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://npm.pkg.github.com
+          scope: "@digicap"
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+
+      # 同じ version を publish できないので、dev push ごとにユニークな pre-release を付ける
+      # 例: 0.1.0-dev.1234+abc1234
+      - name: Set prerelease version
+        shell: bash
+        run: |
+          BASE=$(node -p "require('./package.json').version.split('-')[0]")
+          SHORT_SHA=${GITHUB_SHA::7}
+          npm version "${BASE}-dev.${GITHUB_RUN_NUMBER}+${SHORT_SHA}" --no-git-tag-version
+
+      # dist-tag=dev を付けて publish（利用側は @dev で入れられる）
+      - run: npm publish --tag dev
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
