@@ -22,7 +22,6 @@
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
     "skipLibCheck": true,
-    /* Modern Options */
     "verbatimModuleSyntax": true,
     "isolatedModules": true,
     "moduleDetection": "force"
