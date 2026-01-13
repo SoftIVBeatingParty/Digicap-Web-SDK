@@ -6,7 +6,6 @@ on:
 
 permissions:
   contents: read
-  packages: write
 
 concurrency:
   group: publish-dev
@@ -21,15 +20,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          registry-url: https://npm.pkg.github.com
-          scope: "@digicap-web"
+          registry-url: https://registry.npmjs.org
           cache: npm
 
       - run: npm ci
       - run: npm run build
 
-      # 同じ version を publish できないので、dev push ごとにユニークな pre-release を付ける
-      # 例: 0.1.0-dev.1234+abc1234
+      # dev push ごとにユニークな pre-release version を付ける（コミット/タグは作らない）
       - name: Set prerelease version
         shell: bash
         run: |
@@ -37,7 +34,7 @@ jobs:
           SHORT_SHA=${GITHUB_SHA::7}
           npm version "${BASE}-dev.${GITHUB_RUN_NUMBER}+${SHORT_SHA}" --no-git-tag-version
 
-      # dist-tag=dev を付けて publish（利用側は @dev で入れられる）
-      - run: npm publish --tag dev
+      # npmjs に publish（scoped の場合は public 指定が必要）
+      - run: npm publish --tag dev --access public
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
