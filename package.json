@@ -1,5 +1,5 @@
 {
-  "name": "@digicap-web/sdk",
+  "name": "@digicap/web-sdk",
   "version": "0.1.0",
   "description": "",
   "type": "module",
