@@ -1,4 +1,4 @@
-name: publish-dev
+name: npm-publish
 
 on:
   push:
@@ -22,7 +22,7 @@ jobs:
         with:
           node-version: 20
           registry-url: https://npm.pkg.github.com
-          scope: "@digicap"
+          scope: "@digicap-web"
           cache: npm
 
       - run: npm ci
