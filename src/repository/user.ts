@@ -3,6 +3,19 @@ import { MuseumListSchema, type MuseumList } from "@/schema/museum.js";
 export class UserRepository {
   constructor(readonly baseURL: string) {}
 
+  async collect(): Promise<User[]> {
+    const url = `${this.baseURL}/users`;
+    const response = await fetch(url, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+    });
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+    return UserSchema.array().parse(response.json());
+  }
+
   async get(userId: UserId): Promise<User> {
     const url = `${this.baseURL}/users/${userId}`;
     const response = await fetch(url, {
